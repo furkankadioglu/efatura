@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/furkankadioglu/efatura.svg?style=flat-square)](https://img.shields.io/packagist/v/furkankadioglu/efatura.svg?style=flat-square)
 ![](https://github.com/furkankadioglu/efatura/workflows/Run%20Tests/badge.svg?branch=master)
-[![StyleCI](https://styleci.io/repos/42480275/shield)](https://styleci.io/repos/42480275)
 [![Total Downloads](https://img.shields.io/packagist/dt/furkankadioglu/efatura.svg?style=flat-square)](https://packagist.org/packages/furkankadioglu/efatura)
 
 ### Kurulum
@@ -45,7 +44,6 @@ $client->setDebugMode(true)->setTestCredentials();
 ```
 Ayrıca bilgilerinizi görüntülemek isterseniz:
 ```php
-// Test Environment
 $client->getCredentials();
 ```
 
@@ -134,9 +132,9 @@ Değişkenler Türkçe olduğundan dolayı **mapWithTurkishKeys** fonksiyonunu k
 ```php
 use furkankadioglu\eFatura\Invoice;
 $inv  =  new Invoice();
-$inv->mapWithTurkishKeys($fatura_detaylari); // Key yapısı türkçe
+$inv->mapWithTurkishKeys($fatura_detaylari); // Key yapısı türkçe 🇹🇷
 // VEYA
-$inv->mapWithEnglishKeys($invoice_details); // Key yapısı ingilizce
+$inv->mapWithEnglishKeys($invoice_details); // Key yapısı ingilizce 🇺🇸
 ```
 
 Sonrasında bunu InvoiceManager'a kayıt etmemiz gerekiyor. Oda bu şekilde:
@@ -167,6 +165,7 @@ $client->getDownloadURL();
 **Alternatif Kullanımlar**
 
 **Kısaltılmış Kullanımlar:**
+
 Uzun gelmiş olabilir. 😂 Gayet doğal, chain methodlar ile hayatımızı kolaylaştırıyoruz. Tek satırla işimizi halledelim:
 ```php
 $client->setDebugMode(true)
