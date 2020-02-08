@@ -12,7 +12,7 @@ class InvoiceManager {
      * Api Urls
      */
     const BASE_URL = "https://earsivportal.efatura.gov.tr";
-    const TEST_URL = "https://earsivportaltest.efatura.gov.tr/";
+    const TEST_URL = "https://earsivportaltest.efatura.gov.tr";
     //const TEST_URL = "https://enfoxetrfhod.x.pipedream.net/";
 
     /**
@@ -408,7 +408,7 @@ class InvoiceManager {
                 "callid" => Uuid::uuid1()->toString(),
                 "pageName" => "RG_BASITTASLAKLAR",
                 "token" => $this->token,
-                "imzalanacaklar" => [$this->invoice->getUuid()]
+                "imzalanacaklar" => [$this->invoice->getSummary()]
             ]
         ]);
 
@@ -460,6 +460,59 @@ class InvoiceManager {
         return $body["data"];
     }
 
+    /**
+     * Cancel an invoice
+     *
+     * @param Invoice $invoice
+     * @return boolean
+     */
+    public function cancelInvoice(Invoice $invoice = null, $reason = "Yanlış İşlem")
+    {
+        if($invoice != null)
+        {
+            $this->invoice = $invoice;
+        }
+
+        if($this->invoice == null)
+        {
+            throw new Exception("Invoice null");
+        }
+
+        $data = [
+            "silinecekler" => [$this->invoice->getSummary()],
+            "aciklama" => $reason
+        ];
+
+        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
+            "headers" => $this->headers,
+            "form_params" => [
+                "cmd" => "EARSIV_PORTAL_FATURA_SIL",
+                "callid" => Uuid::uuid1()->toString(),
+                "pageName" => "RG_BASITTASLAKLAR",
+                "token" => $this->token,
+                "jp" => "".json_encode($data)."",
+            ]
+        ]);
+
+        $body = json_decode($response->getBody(), true);
+
+        $this->checkError($body);
+
+        if($body["data"] != "İptal edildi.")
+        {
+            throw new Exception("Fatura iptal edilemedi.");
+        }
+
+        return true;
+    }
+
+    /**
+     * Get download url
+     *
+     * @param Invoice $invoice
+     * @param boolean $signed
+     * @return string
+     */
     public function getDownloadURL(Invoice $invoice = null, $signed = true)
     {
         if($invoice != null)
@@ -476,6 +529,8 @@ class InvoiceManager {
 
         return $this->getBaseUrl()."/earsiv-services/download?token={$this->token}&ettn={$this->invoice->getUuid()}&belgeTip=FATURA&onayDurumu={$signed}&cmd=downloadResource";
     }
+
+    
 
 
 }
