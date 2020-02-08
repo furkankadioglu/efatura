@@ -1,5 +1,7 @@
 # 🧾 eFatura
 
+Bu kütüphane, PHP aracılığıyla eArşiv üzerinden fatura oluşturma, düzenleme, imzalama gibi işlemleri yapabilmenize olanak sağlar. Tamamen ücretsizdir ve aktif olarak geliştirilmektedir. 
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/furkankadioglu/efatura.svg?style=flat-square)](https://img.shields.io/packagist/v/furkankadioglu/efatura.svg?style=flat-square)
 ![](https://github.com/furkankadioglu/efatura/workflows/Run%20Tests/badge.svg?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/furkankadioglu/efatura.svg?style=flat-square)](https://packagist.org/packages/furkankadioglu/efatura)
