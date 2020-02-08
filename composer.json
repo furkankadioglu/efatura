@@ -17,7 +17,10 @@
         "guzzlehttp/guzzle": "^6.5",
         "ramsey/uuid": "^2.9",
         "kwn/number-to-words": "^1.9"
-  },
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
     "autoload": {
         "psr-4": {
             "furkankadioglu\\eFatura\\": "src/"
