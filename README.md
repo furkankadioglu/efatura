@@ -19,6 +19,7 @@
 - Cihaz aracılığıyla fatura imzalama/onaylama.
 - Faturayı HTML olarak çıktı alma.
 - Faturanın indirme adresini alma.
+- Faturayı iptal etme.
 
 ### Örnekler
 
@@ -146,7 +147,7 @@ Sonrasında da taslak oluşturuyoruz:
 $client->createDraftBasicInvoice();
 ```
 
-**İndirme/Onaylama/HTML Çıktısını Alma**
+**İndirme/Onaylama/HTML Çıktısını Alma/İptal**
 
 **Onaylamak için:**
 ```php
@@ -160,6 +161,11 @@ $client->getInvoiceHTML();
 **İndirme linkini almak için:**
 ```php
 $client->getDownloadURL();
+```
+
+**Faturayı iptal etmek için:**
+```php
+$client->cancelInvoice();
 ```
 
 **Alternatif Kullanımlar**
