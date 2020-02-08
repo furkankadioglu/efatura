@@ -231,6 +231,23 @@ class Invoice {
         $this->zReportNumber = isset($data["zReportNumber"]) ? $data["zReportNumber"] : "";
         $this->okcSerialNumber = isset($data["okcSerialNumber"]) ? $data["okcSerialNumber"] : "";
     }
+
+    /**
+     * Get summary fields
+     *
+     * @return array
+     */
+    public function getSummary()
+    {
+        return [
+            "belgeNumarasi" => $this->documentNumber,
+            "aliciVknTckn" => $this->taxOrIdentityNumber,
+            "aliciUnvanAdSoyad" => $this->invoiceAcceptorTitle,
+            "belgeTarihi" => $this->date,
+            "belgeTuru" => "FATURA",
+            "ettn" => $this->uuid
+        ];
+}
     
 
     /**
