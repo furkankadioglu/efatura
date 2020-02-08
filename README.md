@@ -1,7 +1,5 @@
 # 🧾 eFatura
 
-Bu proje Fatih Kadir Akın'ın  [fatura.js](https://github.com/f/fatura "fatura")` projesinden yola çıkılarak PHP diline uyarlanarak yapılmıştır.
-
 ### Kurulum
 
     composer require furkankadioglu/fatura
@@ -248,3 +246,7 @@ $inv->setUuid("Buraya kendi fatura idniz")
 **Uyarı**
 
 🚨 Bu paket vergiye tabi olan belge oluşturur, hiç bir sorumluluk kabul edilmez ve ne yaptığınızdan emin olana kadar debugMode açık şekilde test verileriyle işlem yapmanız önerilir.
+
+**Ayrıca**
+
+Bu proje Fatih Kadir Akın'ın  [fatura.js](https://github.com/f/fatura "fatura")` projesinden yola çıkılarak PHP diline uyarlanarak yapılmıştır. Arda Kılıçdağı'na da ayrıca teşekkürler.
