@@ -22,7 +22,7 @@
 - Faturayı iptal etme.
 - Varolan bir faturayı sorgulama.
 
-### Örnekler
+### 🚩Örnekler
 
 **Giriş**
 
@@ -148,7 +148,9 @@ Sonrasında da taslak oluşturuyoruz:
 $client->createDraftBasicInvoice();
 ```
 
-**Fonksiyonel Özellikler (İndirme/Onaylama/HTML Çıktısını Alma/İptal vb.) **
+### 🚩Fonksiyonel Özellikler
+(İndirme/Onaylama/HTML Çıktısını Alma/İptal vb.)
+
 
 **Onaylamak için:**
 ```php
@@ -177,7 +179,7 @@ $client->setInvoice($oldInvoice)->getInvoiceFromAPI();
 // {"faturaUuid":"8a4423bc-4aca-11ea-8c30-acde48001122","faturaTarihi":"09\/02\/2020"...
 ```
 
-### Alternatif Kullanımlar
+### 🚩Alternatif Kullanımlar
 
 **Kısaltılmış Kullanımlar:**
 
@@ -262,7 +264,7 @@ $inv->setUuid("Buraya kendi fatura idniz")
 ->getCurrencyRate(); // TRY
 ```
 
-### Diğer Konular
+### 🚩Diğer Konular
 
 **Testleri Çalıştırma:**
 
