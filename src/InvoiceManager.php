@@ -507,6 +507,46 @@ class InvoiceManager {
     }
 
     /**
+     * Get an invoice from API
+     *
+     * @param Invoice $invoice
+     * @return array
+     */
+    public function getInvoiceFromAPI(Invoice $invoice = null)
+    {
+        if($invoice != null)
+        {
+            $this->invoice = $invoice;
+        }
+
+        if($this->invoice == null)
+        {
+            throw new Exception("Invoice null");
+        }
+
+        $data = [
+            "ettn" => $this->invoice->getUuid()
+        ];
+
+        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
+            "headers" => $this->headers,
+            "form_params" => [
+                "cmd" => "EARSIV_PORTAL_FATURA_GETIR",
+                "callid" => Uuid::uuid1()->toString(),
+                "pageName" => "RG_BASITFATURA",
+                "token" => $this->token,
+                "jp" => "".json_encode($data)."",
+            ]
+        ]);
+        
+        $body = json_decode($response->getBody(), true);
+
+        $this->checkError($body);
+
+        return $body["data"];
+    }
+
+    /**
      * Get download url
      *
      * @param Invoice $invoice
