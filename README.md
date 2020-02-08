@@ -253,6 +253,18 @@ $inv->setUuid("Buraya kendi fatura idniz")
 ->getCurrencyRate(); // TRY
 ```
 
+**Diğer Konular**
+
+**Testleri Çalıştırma:**
+
+```
+composer test
+```
+
+**Daha Fazla Örnek:**
+
+Daha fazla örneği [buradan](https://github.com/furkankadioglu/efatura/blob/master/example/index.php "buradan")` bulabilirsiniz.
+
 **Uyarı**
 
 🚨 Bu paket vergiye tabi olan belge oluşturur, hiç bir sorumluluk kabul edilmez ve ne yaptığınızdan emin olana kadar debugMode açık şekilde test verileriyle işlem yapmanız önerilir.
