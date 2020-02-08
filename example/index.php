@@ -38,7 +38,7 @@ echo "</pre>";
 
 $fatura_detaylari = [
             "belgeNumarasi" => "",
-            "faturaTarihi" => "08/02/2020",
+            "faturaTarihi" => "09/02/2020",
             "saat" => "09:07:48",
             "paraBirimi" => "TRY",
             "dovzTLkur" => "0",
@@ -130,8 +130,7 @@ $client->setInvoice($inv);
 
 //$client->createDraftBasicInvoice()->signDraftInvoiceWithDevice();
 //$client->createDraftBasicInvoice()->getInvoiceHTML();
-
-echo $client->createDraftBasicInvoice()->getDownloadURL();
+//$client->createDraftBasicInvoice()->cancelInvoice();
 
 
 
