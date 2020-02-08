@@ -20,6 +20,7 @@
 - Faturayı HTML olarak çıktı alma.
 - Faturanın indirme adresini alma.
 - Faturayı iptal etme.
+- Varolan bir faturayı sorgulama.
 
 ### Örnekler
 
@@ -147,7 +148,7 @@ Sonrasında da taslak oluşturuyoruz:
 $client->createDraftBasicInvoice();
 ```
 
-**İndirme/Onaylama/HTML Çıktısını Alma/İptal**
+**Fonksiyonel Özellikler (İndirme/Onaylama/HTML Çıktısını Alma/İptal vb.) **
 
 **Onaylamak için:**
 ```php
@@ -166,6 +167,14 @@ $client->getDownloadURL();
 **Faturayı iptal etmek için:**
 ```php
 $client->cancelInvoice();
+```
+
+**Varolan bir faturayı sorgulamak için:**
+```php
+$oldInvoice = new Invoice();
+$oldInvoice->setUuid("e8277cfa-4ac9-11ea-a5b5-acde48001122");
+$client->setInvoice($oldInvoice)->getInvoiceFromAPI();
+// {"faturaUuid":"8a4423bc-4aca-11ea-8c30-acde48001122","faturaTarihi":"09\/02\/2020"...
 ```
 
 **Alternatif Kullanımlar**
@@ -190,58 +199,58 @@ use furkankadioglu\eFatura\Invoice;
 $inv  =  new Invoice();
 
 $invoice_details = [
-"uuid" => $uuid,
-"documentNumber" => $documentNumber,
-"date" => $date,
-"time" => $time,
-"currency" => $currency,
-"currencyRate" => $currencyRate,
-"invoiceType" => $invoiceType,
-"taxOrIdentityNumber" => $taxOrIdentityNumber,
-"invoiceAcceptorTitle" => $invoiceAcceptorTitle,
-"invoiceAcceptorName" => $invoiceAcceptorName,
-"invoiceAcceptorLastName" => $invoiceAcceptorLastName,
-"buildingName" => $buildingName,
-"buildingNumber" => $buildingNumber,
-"doorNumber" => $doorNumber,
-"town" => $town,
-"taxAdministration" => $taxAdministration,
-"country" => $country,
-"avenueStreet" => $avenueStreet,
-"district" => $district,
-"city" => $city,
-"postNumber" => $postNumber,
-"telephoneNumber" => $telephoneNumber,
-"faxNumber" => $faxNumber,
-"email" => $email,
-"website" => $website,
-"refundTable" => $refundTable,
-"specialBaseAmount" => $specialBaseAmount,
-"specialBasePercent" => $specialBasePercent,
-"specialBaseTaxAmount" => $specialBaseTaxAmount,
-"taxType" => $taxType,
-"itemOrServiceList" => $itemOrServiceList,
-"type" => $type,
-"base" => $base,
-"itemOrServiceTotalPrice" => $itemOrServiceTotalPrice,
-"totalDiscount" => $totalDiscount,
-"calculatedVAT" => $calculatedVAT,
-"taxTotalPrice" => $taxTotalPrice,
-"includedTaxesTotalPrice" => $includedTaxesTotalPrice,
-"paymentPrice" => $paymentPrice,
-"note" => $note,
-"orderNumber" => $orderNumber,
-"orderData" => $orderData,
-"waybillNumber" => $waybillNumber,
-"waybillDate" => $waybillDate,
-"receiptNumber" => $receiptNumber,
-"voucherDate" => $voucherDate,
-"voucherTime" => $voucherTime,
-"voucherType" => $voucherType,
-"zReportNumber" => $zReportNumber,
-"okcSerialNumber" => $okcSerialNumber
-
+    "uuid" => $uuid,
+    "documentNumber" => $documentNumber,
+    "date" => $date,
+    "time" => $time,
+    "currency" => $currency,
+    "currencyRate" => $currencyRate,
+    "invoiceType" => $invoiceType,
+    "taxOrIdentityNumber" => $taxOrIdentityNumber,
+    "invoiceAcceptorTitle" => $invoiceAcceptorTitle,
+    "invoiceAcceptorName" => $invoiceAcceptorName,
+    "invoiceAcceptorLastName" => $invoiceAcceptorLastName,
+    "buildingName" => $buildingName,
+    "buildingNumber" => $buildingNumber,
+    "doorNumber" => $doorNumber,
+    "town" => $town,
+    "taxAdministration" => $taxAdministration,
+    "country" => $country,
+    "avenueStreet" => $avenueStreet,
+    "district" => $district,
+    "city" => $city,
+    "postNumber" => $postNumber,
+    "telephoneNumber" => $telephoneNumber,
+    "faxNumber" => $faxNumber,
+    "email" => $email,
+    "website" => $website,
+    "refundTable" => $refundTable,
+    "specialBaseAmount" => $specialBaseAmount,
+    "specialBasePercent" => $specialBasePercent,
+    "specialBaseTaxAmount" => $specialBaseTaxAmount,
+    "taxType" => $taxType,
+    "itemOrServiceList" => $itemOrServiceList,
+    "type" => $type,
+    "base" => $base,
+    "itemOrServiceTotalPrice" => $itemOrServiceTotalPrice,
+    "totalDiscount" => $totalDiscount,
+    "calculatedVAT" => $calculatedVAT,
+    "taxTotalPrice" => $taxTotalPrice,
+    "includedTaxesTotalPrice" => $includedTaxesTotalPrice,
+    "paymentPrice" => $paymentPrice,
+    "note" => $note,
+    "orderNumber" => $orderNumber,
+    "orderData" => $orderData,
+    "waybillNumber" => $waybillNumber,
+    "waybillDate" => $waybillDate,
+    "receiptNumber" => $receiptNumber,
+    "voucherDate" => $voucherDate,
+    "voucherTime" => $voucherTime,
+    "voucherType" => $voucherType,
+    "zReportNumber" => $zReportNumber,
+    "okcSerialNumber" => $okcSerialNumber
 ];
+
 $inv->mapWithEnglishKeys($invoice_details); // Key yapısı ingilizce
 ```
 
@@ -253,7 +262,7 @@ $inv->setUuid("Buraya kendi fatura idniz")
 ->getCurrencyRate(); // TRY
 ```
 
-**Diğer Konular**
+### Diğer Konular
 
 **Testleri Çalıştırma:**
 

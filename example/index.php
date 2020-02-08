@@ -132,6 +132,12 @@ $client->setInvoice($inv);
 //$client->createDraftBasicInvoice()->getInvoiceHTML();
 //$client->createDraftBasicInvoice()->cancelInvoice();
 
+$client->createDraftBasicInvoice();
 
-
-
+$oldInvoice = new Invoice();
+$oldInvoice->setUuid($inv->getUuid());
+$client->setInvoice($oldInvoice);
+echo "<h1>Get An Invoice Details From API</h1>";
+echo "<pre>";
+echo json_encode($client->getInvoiceFromAPI());
+echo "</pre>";
