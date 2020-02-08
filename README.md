@@ -177,7 +177,7 @@ $client->setInvoice($oldInvoice)->getInvoiceFromAPI();
 // {"faturaUuid":"8a4423bc-4aca-11ea-8c30-acde48001122","faturaTarihi":"09\/02\/2020"...
 ```
 
-**Alternatif Kullanımlar**
+### Alternatif Kullanımlar
 
 **Kısaltılmış Kullanımlar:**
 
@@ -254,7 +254,7 @@ $invoice_details = [
 $inv->mapWithEnglishKeys($invoice_details); // Key yapısı ingilizce
 ```
 
-**Bu şekilde de map edebileceğiniz gibi ayrıyetten getter/setter methodları da mevcut:**
+Bu şekilde de map edebileceğiniz gibi ayrıyetten getter/setter methodları da mevcut, istediğiniz her veriyi düzenleyebilirsiniz:
 
 ```php
 $inv->setUuid("Buraya kendi fatura idniz") 
