@@ -1,6 +1,6 @@
 <?php 
 
-namespace furkankadioglu\eFatura;
+namespace furkankadioglu\eFatura\Models;
 
 use furkankadioglu\eFatura\Traits\Exportable;
 use NumberToWords\NumberToWords;

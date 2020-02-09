@@ -5,9 +5,10 @@ namespace furkankadioglu\eFatura;
 use Exception;
 use GuzzleHttp\Client;
 use Rhumsaa\Uuid\Uuid;
+use furkankadioglu\eFatura\Models\Invoice;
+use furkankadioglu\eFatura\Models\UserInformations;
 
 class InvoiceManager {
-
     /**
      * Api Urls
      */
@@ -52,7 +53,7 @@ class InvoiceManager {
     /**
      * Current targeted invoice
      *
-     * @var furkankadioglu\eFatura\Invoice
+     * @var furkankadioglu\eFatura\Models\Invoice
      */
     protected $invoice;
 
@@ -73,14 +74,14 @@ class InvoiceManager {
     /**
      * Invoices
      *
-     * @var array furkankadioglu\eFatura\Invoice
+     * @var array furkankadioglu\eFatura\Models\Invoice
      */
     protected $invoices = [];
 
     /**
      * User Informations
      *
-     * @var furkankadioglu\eFatura\UserInformations
+     * @var furkankadioglu\eFatura\Models\UserInformations
      */
     protected $userInformations;
 
@@ -282,7 +283,7 @@ class InvoiceManager {
     /**
      * Getter function for invoice
      *
-     * @return furkankadioglu\eFatura\Invoice
+     * @return furkankadioglu\eFatura\Models\Invoice
      */
     public function getInvoice()
     {
@@ -352,7 +353,7 @@ class InvoiceManager {
      * Create draft basic invoice
      *
      * @param Invoice $invoice
-     * @return furkankadioglu\eFatura\Invoice
+     * @return furkankadioglu\eFatura\Models\Invoice
      */
     public function createDraftBasicInvoice(Invoice $invoice = null)
     {
@@ -579,8 +580,8 @@ class InvoiceManager {
     /**
      * Set invoice manager user informations
      *
-     * @param furkankadioglu\eFatura\UserInformations $userInformations
-     * @return furkankadioglu\eFatura\Invoice
+     * @param furkankadioglu\eFatura\Models\UserInformations $userInformations
+     * @return furkankadioglu\eFatura\Models\Invoice
      */
     public function setUserInformations(UserInformations $userInformations)
     {
@@ -591,7 +592,7 @@ class InvoiceManager {
     /**
      * Get invoice manager user informations
      *
-     * @return furkankadioglu\eFatura\UserInformations
+     * @return furkankadioglu\eFatura\Models\UserInformations
      */
     public function getUserInformations()
     {
@@ -601,7 +602,7 @@ class InvoiceManager {
     /**
      * Get user informations data
      *
-     * @return furkankadioglu\eFatura\UserInformations
+     * @return furkankadioglu\eFatura\Models\UserInformations
      */
     public function getUserInformationsData()
     {
