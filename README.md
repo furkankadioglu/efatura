@@ -18,7 +18,7 @@ https://earsivportaltest.efatura.gov.tr/login.jsp
 
 **Paket Kurulumu:**
 
-    composer require furkankadioglu/fatura
+    composer require furkankadioglu/efatura
 
 
 ### 🚩Özellikler
