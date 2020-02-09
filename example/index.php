@@ -141,3 +141,17 @@ echo "<h1>Get An Invoice Details From API</h1>";
 echo "<pre>";
 echo json_encode($client->getInvoiceFromAPI());
 echo "</pre>";
+
+
+$userInformations = $client->getUserInformationsData();
+echo "<h1>User Informations Data</h1>";
+echo "<pre>";
+echo json_encode($userInformations->export());
+echo "</pre>";
+
+
+$userInformations = $userInformations->setUnvan("XYZ Yazılım");
+$userInformations = $userInformations->setApartmanNo("12");
+
+$client->setUserInformations($userInformations);
+$client->sendUserInformationsData();
