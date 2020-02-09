@@ -2,10 +2,13 @@
 
 namespace furkankadioglu\eFatura;
 
+use furkankadioglu\eFatura\Traits\Exportable;
 use NumberToWords\NumberToWords;
 use Rhumsaa\Uuid\Uuid;
 
 class Invoice {
+
+    use Exportable;
 
     protected $uuid;
     protected $documentNumber = "";
@@ -115,67 +118,6 @@ class Invoice {
         $this->voucherType = isset($data["fisTipi"]) ? $data["fisTipi"] : "";
         $this->zReportNumber = isset($data["zRaporNo"]) ? $data["zRaporNo"] : "";
         $this->okcSerialNumber = isset($data["okcSeriNo"]) ? $data["okcSeriNo"] : "";
-    }
-
-    /**
-     * Base export function for guzzle post
-     *
-     * @return array
-     */
-    public function export()
-    {
-        return [
-            "faturaUuid" => $this->uuid,
-            "belgeNumarasi" => $this->documentNumber,
-            "faturaTarihi" => $this->date,
-            "saat" => $this->time,
-            "paraBirimi" => $this->currency,
-            "dovzTLkur" => $this->currencyRate,
-            "faturaTipi" => $this->invoiceType,
-            "vknTckn" => $this->taxOrIdentityNumber,
-            "aliciUnvan" => $this->invoiceAcceptorTitle,
-            "aliciAdi" => $this->invoiceAcceptorName,
-            "aliciSoyadi" => $this->invoiceAcceptorLastName,
-            "binaAdi" => $this->buildingName,
-            "binaNo" => $this->buildingNumber,
-            "kapiNo" => $this->doorNumber,
-            "kasabaKoy" => $this->town,
-            "vergiDairesi" => $this->taxAdministration,
-            "ulke" => $this->country,
-            "bulvarcaddesokak" => $this->avenueStreet,
-            "mahalleSemtIlce" => $this->district,
-            "sehir" => $this->city,
-            "postaKodu" => $this->postNumber,
-            "tel" => $this->telephoneNumber,
-            "fax" => $this->faxNumber,
-            "eposta" => $this->email,
-            "websitesi" => $this->website,
-            "iadeTable" => $this->refundTable,
-            "ozelMatrahTutari" => $this->specialBaseAmount,
-            "ozelMatrahOrani" => $this->specialBasePercent,
-            "ozelMatrahVergiTutari" => $this->specialBaseTaxAmount,
-            "vergiCesidi" => $this->taxType,
-            "malHizmetTable" => $this->itemOrServiceList,
-            "tip" => $this->type,
-            "matrah" => $this->base,
-            "malhizmetToplamTutari" => $this->itemOrServiceTotalPrice,
-            "toplamIskonto" => $this->totalDiscount,
-            "hesaplanankdv" => $this->calculatedVAT,
-            "vergilerToplami" => $this->taxTotalPrice,
-            "vergilerDahilToplamTutar" => $this->includedTaxesTotalPrice,
-            "odenecekTutar" => $this->paymentPrice,
-            "not" => $this->note,
-            "siparisNumarasi" => $this->orderNumber,
-            "siparisTarihi" => $this->orderData,
-            "irsaliyeNumarasi" => $this->waybillNumber,
-            "irsaliyeTarihi" => $this->waybillDate,
-            "fisNo" => $this->receiptNumber,
-            "fisTarihi" => $this->voucherDate,
-            "fisSaati" => $this->voucherTime,
-            "fisTipi" => $this->voucherType,
-            "zRaporNo" => $this->zReportNumber,
-            "okcSeriNo" => $this->okcSerialNumber,
-        ];
     }
 
     public function mapWithEnglishKeys($data)
