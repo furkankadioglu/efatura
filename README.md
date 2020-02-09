@@ -233,7 +233,7 @@ $client->setInvoice($oldInvoice)->getInvoiceFromAPI();
 
 **Kısaltılmış Kullanımlar:**
 
-Uzun gelmiş olabilir. 😂 Gayet doğal, chain methodlar ile hayatımızı kolaylaştırıyoruz. Tek satırla işimizi halledelim:
+Uzun gelmiş olabilir. 😂 Gayet doğal, chain methodlar ile hayatımızı kolaylaştırıyoruz. Tek satırda işimizi halledelim:
 ```php
 $client->setDebugMode(true)
 ->setTestCredentials()
@@ -246,7 +246,7 @@ $client->setDebugMode(true)
 
 **Sabit Değişkenler:**
 
-Bir çok farklı veri tipi olduğundan ve önceden bilinmediğinde sorunlar çıkabileceğini düşünerek, bazı ihtiyaç duyulan sabit seçenekler de mevcut. Örnekten bazılarını görebilirsiniz:
+Bir çok farklı veri tipi olduğundan ve önceden bilinmediğinde sorunlar çıkabileceğini düşünerek, bazı ihtiyaç duyulan sabit seçenekler de mevcut. Tüm değişken isimleri eArşiv de görünenlerle birebir yapıldı. Örnekten bazılarını görebilirsiniz:
 
 ```php
 use furkankadioglu\eFatura\Models\Country;
