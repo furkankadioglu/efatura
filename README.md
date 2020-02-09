@@ -23,6 +23,8 @@ Bu kütüphane, PHP aracılığıyla eArşiv üzerinden fatura oluşturma, düze
 - Faturanın indirme adresini alma.
 - Faturayı iptal etme.
 - Varolan bir faturayı sorgulama.
+- Kullanıcı bilgilerini çekme (Şirketinizin temel bilgileri)
+- Kullanıcı bilgilerini güncelleme 
 
 ### 🚩Örnekler
 
@@ -150,6 +152,37 @@ Sonrasında da taslak oluşturuyoruz:
 $client->createDraftBasicInvoice();
 ```
 
+**Kullanıcı Bilgileri**
+
+Bu kısım firmanızın eArşiv'de kayıtlı olan bilgileridir. Bu bilgileri alabilir ve güncelleyebilirsiniz.
+
+👉Aynı zamanda bu bilgileri almak, fatura oluştururken ihtiyaç duyacağınız bir çok veri ihtiyacınızı da karşılar.
+
+```php
+$userInformations = $client->getUserInformationsData();
+```
+Bu işlem size bir adet UserInformations sınıfı döndürür. Bu sınıftaki verilerinizin tamamını set ve get metodlarıyla değiştirebilirsiniz:
+
+```php
+// Sadece vknTckn değiştirilemez.
+$userInformations = $userInformations->setUnvan("FRKN Yazılım")->setApartmanNo("4");
+$apartmanNo = $userInformations->getApartmanNo(); // 4
+```
+
+Ayrıca bu sınıfın verilerini toplu olarak almak isterseniz aşağıdaki kullanımı uygulayabilirsiniz, aynı fonksiyon Invoice sınıfı içinde geçerli:
+
+```php
+$userInformations->export(); // Array olarak tüm değişkenleri döndürür.
+```
+
+
+Aynı zamanda bu sınıfı kendiniz oluşturabilir ve array olarak veriyi sağlayabilirsiniz. Sonrasında da şu şekilde sunucuya göndeririz:
+
+```php
+$client->setUserInformations($userInformations); // Manager'a tanımla.
+$client->sendUserInformationsData(); // Sunucuya gönder.
+```
+
 ### 🚩Fonksiyonel Özellikler
 (İndirme/Onaylama/HTML Çıktısını Alma/İptal vb.)
 
@@ -193,7 +226,7 @@ $client->setDebugMode(true)
 ->createDraftBasicInvoice()
 ->getDownloadURL();
 
-// https://earsivportaltest.efatura.gov.tr//earsiv-services/download?token=b8b6c261c511a9b2757279c0111b538a2f02d98ae2df6205448d002687cab8cf74ce04d187bf0c6ce839dee40a6a8aad003aa6d5946ba02a0942ceb10bde327f&ettn=85933f42-4ab1-11ea-922e-acde48001122&belgeTip=FATURA&onayDurumu=Onaylandı&cmd=downloadResource
+// https://earsivportaltest.efatura.gov.tr/earsiv-services/download?token=b8b6c261c511a9b2757279c0111b538a2f02d98ae2df6205448d002687cab8cf74ce04d187bf0c6ce839dee40a6a8aad003aa6d5946ba02a0942ceb10bde327f&ettn=85933f42-4ab1-11ea-922e-acde48001122&belgeTip=FATURA&onayDurumu=Onaylandı&cmd=downloadResource
 ```
 
 **Anahtar Yapısını Değiştirme:**
@@ -264,6 +297,14 @@ Bu şekilde de map edebileceğiniz gibi ayrıyetten getter/setter methodları da
 $inv->setUuid("Buraya kendi fatura idniz") 
 ->setCountry("Türkiye")
 ->getCurrencyRate(); // TRY
+```
+
+**Toplu veri alımı ve çıkartımı:**
+
+Fatura verisinin değişken değerlerini toplu olarak ekleyebilir veya çıkartabiliriz, şöyle:
+```php
+    $inv = new Invoice($data); // data arrayinden keylere göre tüm verileri alır.
+    $inv->export(); // tüm verileri çıkartır.
 ```
 
 ### 🚩Diğer Konular
