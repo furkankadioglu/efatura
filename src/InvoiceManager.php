@@ -13,7 +13,6 @@ class InvoiceManager {
      */
     const BASE_URL = "https://earsivportal.efatura.gov.tr";
     const TEST_URL = "https://earsivportaltest.efatura.gov.tr";
-    //const TEST_URL = "https://enfoxetrfhod.x.pipedream.net/";
 
     /**
      * Username field for auth
@@ -77,6 +76,13 @@ class InvoiceManager {
      * @var array furkankadioglu\eFatura\Invoice
      */
     protected $invoices = [];
+
+    /**
+     * User Informations
+     *
+     * @var furkankadioglu\eFatura\UserInformations
+     */
+    protected $userInformations;
 
     /**
      * Base headers
@@ -538,7 +544,7 @@ class InvoiceManager {
                 "jp" => "".json_encode($data)."",
             ]
         ]);
-        
+
         $body = json_decode($response->getBody(), true);
 
         $this->checkError($body);
@@ -568,6 +574,91 @@ class InvoiceManager {
         $signed = $signed ? "Onaylandı" : "Onaylanmadı";
 
         return $this->getBaseUrl()."/earsiv-services/download?token={$this->token}&ettn={$this->invoice->getUuid()}&belgeTip=FATURA&onayDurumu={$signed}&cmd=downloadResource";
+    }
+
+    /**
+     * Set invoice manager user informations
+     *
+     * @param furkankadioglu\eFatura\UserInformations $userInformations
+     * @return furkankadioglu\eFatura\Invoice
+     */
+    public function setUserInformations(UserInformations $userInformations)
+    {
+        $this->userInformations = $userInformations;
+        return $this;
+    }
+
+    /**
+     * Get invoice manager user informations
+     *
+     * @return furkankadioglu\eFatura\UserInformations
+     */
+    public function getUserInformations()
+    {
+        return $this->userInformations;
+    }
+
+    /**
+     * Get user informations data
+     *
+     * @return furkankadioglu\eFatura\UserInformations
+     */
+    public function getUserInformationsData()
+    {
+        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
+            "headers" => $this->headers,
+            "form_params" => [
+                "cmd" => "EARSIV_PORTAL_KULLANICI_BILGILERI_GETIR",
+                "callid" => Uuid::uuid1()->toString(),
+                "pageName" => "RG_KULLANICI",
+                "token" => $this->token,
+                "jp" => "{}",
+            ]
+        ]);
+        
+        $body = json_decode($response->getBody(), true);
+
+        $this->checkError($body);
+
+        $userInformations = new UserInformations($body["data"]);
+        return $this->userInformations = $userInformations;
+    }
+
+    /**
+     * Send user informations data
+     *
+     * @param Invoice $invoice
+     * @return array
+     */
+    public function sendUserInformationsData(UserInformations $userInformations = null)
+    {
+        if($userInformations != null)
+        {
+            $this->userInformations = $userInformations;
+        }
+
+        if($this->userInformations == null)
+        {
+            throw new Exception("User informations null");
+        }
+        
+
+        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
+            "headers" => $this->headers,
+            "form_params" => [
+                "cmd" => "EARSIV_PORTAL_KULLANICI_BILGILERI_KAYDET",
+                "callid" => Uuid::uuid1()->toString(),
+                "pageName" => "RG_KULLANICI",
+                "token" => $this->token,
+                "jp" => "".json_encode($this->userInformations->export())."",
+            ]
+        ]);
+        
+        $body = json_decode($response->getBody(), true);
+
+        $this->checkError($body);
+
+        return $body["data"];
     }
 
     
