@@ -244,6 +244,17 @@ $client->setDebugMode(true)
 // https://earsivportaltest.efatura.gov.tr/earsiv-services/download?token=b8b6c261c511a9b2757279c0111b538a2f02d98ae2df6205448d002687cab8cf74ce04d187bf0c6ce839dee40a6a8aad003aa6d5946ba02a0942ceb10bde327f&ettn=85933f42-4ab1-11ea-922e-acde48001122&belgeTip=FATURA&onayDurumu=Onaylandı&cmd=downloadResource
 ```
 
+**Sabit Değişkenler:**
+
+Bir çok farklı veri tipi olduğundan ve önceden bilinmediğinde sorunlar çıkabileceğini düşünerek, bazı ihtiyaç duyulan sabit seçenekler de mevcut. Örnekten bazılarını görebilirsiniz:
+
+```php
+$gunBirim = UnitType::GUN; // DAY
+$turkLirasi = CurrencyType::TURK_LIRASI; // TRY
+$satisFaturasi = InvoiceType::SATIS; // SATIŞ
+$gurcistanUlkesi = CountryType::GURCISTAN; // Gürcistan
+```
+
 **Anahtar Yapısını Değiştirme:**
 
 ```php
