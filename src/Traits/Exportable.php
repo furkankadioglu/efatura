@@ -9,7 +9,7 @@ trait Exportable {
      *
      * @return array
      */
-    public function export()
+    public function exportAllVariables()
     {
         return get_object_vars($this);
     }
