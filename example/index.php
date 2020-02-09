@@ -1,8 +1,11 @@
 <?php
 
-use furkankadioglu\eFatura\Invoice;
+use furkankadioglu\eFatura\Models\Invoice;
 use furkankadioglu\eFatura\InvoiceManager;
-use Rhumsaa\Uuid\Uuid;
+use furkankadioglu\eFatura\Models\Country;
+use furkankadioglu\eFatura\Models\CurrencyType;
+use furkankadioglu\eFatura\Models\InvoiceType;
+use furkankadioglu\eFatura\Models\UnitType;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -40,9 +43,9 @@ $fatura_detaylari = [
             "belgeNumarasi" => "",
             "faturaTarihi" => "09/02/2020",
             "saat" => "09:07:48",
-            "paraBirimi" => "TRY",
+            "paraBirimi" => CurrencyType::TURK_LIRASI,
             "dovzTLkur" => "0",
-            "faturaTipi" => "SATIS",
+            "faturaTipi" => InvoiceType::SATIS,
             "vknTckn" =>  "11111111111",
             "aliciUnvan" => "FURKAN KADIOGLU",
             "aliciAdi" => "FURKAN",
@@ -52,7 +55,7 @@ $fatura_detaylari = [
             "kapiNo" => "",
             "kasabaKoy" => "",
             "vergiDairesi" => "MALTEPE",
-            "ulke" => "Türkiye",
+            "ulke" => Country::TURKIYE,
             "bulvarcaddesokak" => "DENEME SK. DENEME MAH.",
             "mahalleSemtIlce" => "",
             "sehir" => " ",
@@ -91,7 +94,7 @@ $fatura_detaylari = [
 $fatura_detaylari["malHizmetTable"][] = [
     "malHizmet" => "Yazılım Geliştirme",
     "miktar" => 28,
-    "birim" => "DAY",
+    "birim" => UnitType::GUN,
     "birimFiyat" => "3",
     "fiyat" => "84",
     "iskontoArttm" => "İskonto",
