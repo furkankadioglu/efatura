@@ -249,6 +249,11 @@ $client->setDebugMode(true)
 Bir çok farklı veri tipi olduğundan ve önceden bilinmediğinde sorunlar çıkabileceğini düşünerek, bazı ihtiyaç duyulan sabit seçenekler de mevcut. Örnekten bazılarını görebilirsiniz:
 
 ```php
+use furkankadioglu\eFatura\Models\Country;
+use furkankadioglu\eFatura\Models\CurrencyType;
+use furkankadioglu\eFatura\Models\InvoiceType;
+use furkankadioglu\eFatura\Models\UnitType;
+
 $gunBirim = UnitType::GUN; // DAY
 $turkLirasi = CurrencyType::TURK_LIRASI; // TRY
 $satisFaturasi = InvoiceType::SATIS; // SATIŞ
