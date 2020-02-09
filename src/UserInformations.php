@@ -64,6 +64,38 @@ class UserInformations {
     }
 
     /**
+     * Export all variables
+     *
+     * @return array
+     */
+    public function export()
+    {
+        return [
+            "vknTckn" => $this->vknTckn,
+            "unvan" => $this->unvan,
+            "ad" => $this->ad,
+            "soyad" => $this->soyad,
+            "sicilNo" => $this->sicilNo,
+            "mersisNo" => $this->mersisNo,
+            "vergiDairesi" => $this->vergiDairesi,
+            "cadde" => $this->cadde,
+            "apartmanAdi" => $this->apartmanAdi,
+            "apartmanNo" => $this->apartmanNo,
+            "kapiNo" => $this->kapiNo,
+            "kasaba" => $this->kasaba,
+            "ilce" => $this->ilce,
+            "il" => $this->il,
+            "postaKodu" => $this->postaKodu,
+            "ulke" => $this->ulke,
+            "telNo" => $this->telNo,
+            "faksNo" => $this->faksNo,
+            "ePostaAdresi" => $this->ePostaAdresi,
+            "webSitesiAdresi" => $this->webSitesiAdresi,
+            "isMerkezi" => $this->isMerkezi
+        ];
+    }
+
+    /**
      * Get the value of vknTckn (This field readonly!)
      */ 
     public function getVknTckn()
