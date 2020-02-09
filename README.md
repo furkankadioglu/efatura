@@ -8,6 +8,16 @@ Bu kütüphane, PHP aracılığıyla eArşiv üzerinden fatura oluşturma, düze
 
 ### 🚩Kurulum
 
+**Kendi verileriniz ile test etmek için:**
+
+https://earsivportal.efatura.gov.tr/intragiris.html
+
+**Test hesaplarıyla test etmek için:**
+
+https://earsivportaltest.efatura.gov.tr/login.jsp
+
+**Paket Kurulumu:**
+
     composer require furkankadioglu/fatura
 
 
