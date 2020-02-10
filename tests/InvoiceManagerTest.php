@@ -1,6 +1,7 @@
 <?php 
 namespace furkankadioglu\eFatura;
 
+use furkankadioglu\eFatura\Models\Invoice;
 use PHPUnit\Framework\TestCase;
 
 class InvoiceManagerTest extends TestCase
