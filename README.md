@@ -257,7 +257,7 @@ use furkankadioglu\eFatura\Models\UnitType;
 $gunBirim = UnitType::GUN; // DAY
 $turkLirasi = CurrencyType::TURK_LIRASI; // TRY
 $satisFaturasi = InvoiceType::SATIS; // SATIŞ
-$gurcistanUlkesi = CountryType::GURCISTAN; // Gürcistan
+$gurcistanUlkesi = Country::GURCISTAN; // Gürcistan
 ```
 
 **Anahtar Yapısını Değiştirme:**
