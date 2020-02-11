@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use Rhumsaa\Uuid\Uuid;
 use furkankadioglu\eFatura\Models\Invoice;
 use furkankadioglu\eFatura\Models\UserInformations;
+use Mpdf\Mpdf;
 
 class InvoiceManager {
     /**
@@ -485,6 +486,14 @@ class InvoiceManager {
         $this->checkError($body);
 
         return $body["data"];
+    }
+
+    public function getInvoicePDF(Invoice $invoice = null, $signed = true)
+    {
+        $data = $this->getInvoiceHTML($invoice, $signed);
+        $mpdf = new Mpdf();
+        $mpdf->WriteHTML($data);
+        return $mpdf->Output();
     }
 
     /**
