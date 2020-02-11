@@ -85,6 +85,14 @@ class InvoiceManager {
      */
     protected $userInformations;
 
+
+    /**
+     * Operation identifier for SMS Verification
+     *
+     * @var string
+     */
+    protected $oid;
+
     /**
      * Base headers
      *
@@ -674,7 +682,67 @@ class InvoiceManager {
         return $body["data"];
     }
 
-    
+    /**
+     * Send user informations data
+     *
+     * @param string $phoneNumber
+     * @return array
+     */
+    public function sendSMSVerification($phoneNumber)
+    {
+        $data = [
+            "CEPTEL" => $phoneNumber,
+            "KTEL" => false,
+            "TIP" => ""
+        ];
+
+        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
+            "headers" => $this->headers,
+            "form_params" => [
+                "cmd" => "EARSIV_PORTAL_SMSSIFRE_GONDER",
+                "callid" => Uuid::uuid1()->toString(),
+                "pageName" => "RG_SMSONAY",
+                "token" => $this->token,
+                "jp" => "".json_encode($data)."",
+            ]
+        ]);
+        
+        $body = json_decode($response->getBody(), true);
+
+        $this->checkError($body);
+        $this->oid = $body["data"]["oid"];
+        return $this->oid;
+    }
+
+    /**
+     * Send user informations data
+     *
+     * @param string $phoneNumber
+     * @return array
+     */
+    public function verifySMSVerification($code, $operationId)
+    {
+        $data = [
+            "SIFRE" => $code,
+            "OID" => $operationId
+        ];
+
+        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
+            "headers" => $this->headers,
+            "form_params" => [
+                "cmd" => "EARSIV_PORTAL_SMSSIFRE_GONDER",
+                "callid" => Uuid::uuid1()->toString(),
+                "pageName" => "RG_SMSONAY",
+                "token" => $this->token,
+                "jp" => "".json_encode($data)."",
+            ]
+        ]);
+        
+        $body = json_decode($response->getBody(), true);
+
+        $this->checkError($body);
+        return true;
+    }
 
 
 }
