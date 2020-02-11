@@ -75,7 +75,7 @@ $client->getCredentials();
 Faturaların listelenmesi aşağıdaki şekilde yapılıyor:
 ```php
 // Tüm faturaları listele
-$client->getInvoicesFromAPI("01/01/2020", "08/02/2020")
+$client->getInvoicesFromAPI("01/01/2020", "08/02/2020");
 ```
 Yeni bir fatura oluşturmak isterseniz, bir kaç seçeneğiniz mevcut, kullanım alışkanlığı olarak ingilizceye alışmışlar için iki farklı yöntem var, ilk aşamada Türkçe'den gidelim.
 
