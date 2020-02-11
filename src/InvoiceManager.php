@@ -237,26 +237,41 @@ class InvoiceManager {
     }
 
     /**
+     * Send request, json decode and return response
+     *
+     * @param string $url
+     * @param array $parameters
+     * @param array $headers
+     * @return array
+     */
+    private function sendRequestAndGetBody($url, $parameters, $headers = null)
+    {
+        $response = $this->client->post($this->getBaseUrl()."$url", [
+            "headers" => $headers ? $headers : $this->headers,
+            "form_params" => $parameters
+        ]);
+
+        $body = json_decode($response->getBody(), true);
+        return $body;
+    }
+
+    /**
      * Get auth token
      *
      * @return string
      */
     public function getTokenFromApi()
     {
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/assos-login", [
-            "form_params" => [
-                "assoscmd" => $this->debugMode ? "login" : "anologin",
-                "rtype" => "json",
-                "userid" => $this->username,
-                "sifre" => $this->password,
-                "sifre2" => $this->password,
-                "parola" => "1"
-                
-            ]
-        ]);
+        $parameters = [
+            "assoscmd" => $this->debugMode ? "login" : "anologin",
+            "rtype" => "json",
+            "userid" => $this->username,
+            "sifre" => $this->password,
+            "sifre2" => $this->password,
+            "parola" => "1"
+        ];
 
-        $body = json_decode($response->getBody(), true);
-
+        $body = $this->sendRequestAndGetBody("/earsiv-services/assos-login", $parameters, []);
         $this->checkError($body);
 
         return $this->token = $body["token"];
@@ -308,21 +323,15 @@ class InvoiceManager {
      */
     public function getInvoicesFromAPI($startDate, $endDate)
     {
-
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
-            
-                "headers" => $this->headers,
-                "form_params" => [
-                    "cmd" => "EARSIV_PORTAL_TASLAKLARI_GETIR",
-                    "callid" => Uuid::uuid1()->toString(),
-                    "pageName" => "RG_BASITTASLAKLAR",
-                    "token" => $this->token,
-                    "jp" => '{"baslangic":"'.$startDate.'","bitis":"'.$endDate.'","table":[]}'
-                ]
-        ]);
-
-        $body = json_decode($response->getBody(), true);
-
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_TASLAKLARI_GETIR",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_BASITTASLAKLAR",
+            "token" => $this->token,
+            "jp" => '{"baslangic":"'.$startDate.'","bitis":"'.$endDate.'","table":[]}'
+        ];
+        
+        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
         $this->checkError($body);
 
         return $body;
@@ -335,6 +344,11 @@ class InvoiceManager {
      */
     public function getMainTreeMenuFromAPI()
     {
+
+        $headers = [
+            "referrer" => $this->referrer
+        ];
+
         $parameters = [
             "cmd" => "getUserMenu",
             "callid" => Uuid::uuid1()->toString(),
@@ -343,16 +357,7 @@ class InvoiceManager {
             "jp" => '{"ANONIM_LOGIN":"1"}'
         ];
 
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
-            "headers" => [
-                "referrer" => $this->referrer
-            ],
-            "form_params" => $parameters
-        ]);
-        
-
-        $body = json_decode($response->getBody(), true);
-
+        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters, $headers);
         $this->checkError($body);
 
         return $body["data"];
@@ -376,19 +381,15 @@ class InvoiceManager {
             throw new Exception("Invoice null");
         }
 
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
-            "headers" => $this->headers,
-            "form_params" => [
-                "cmd" => "EARSIV_PORTAL_FATURA_OLUSTUR",
-                "callid" => Uuid::uuid1()->toString(),
-                "pageName" => "RG_FATURA",
-                "token" => $this->token,
-                "jp" => "".json_encode($this->invoice->export()).""
-            ]
-        ]);
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_FATURA_OLUSTUR",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_FATURA",
+            "token" => $this->token,
+            "jp" => "".json_encode($this->invoice->export()).""
+        ];
 
-        $body = json_decode($response->getBody(), true);
-
+        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
         $this->checkError($body);
 
         if($body["data"] != "Faturanız başarıyla taslaklara eklenmiştir.")
@@ -429,19 +430,15 @@ class InvoiceManager {
             throw new Exception("Invoice null");
         }
 
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
-            "headers" => $this->headers,
-            "form_params" => [
-                "cmd" => "EARSIV_PORTAL_FATURA_HSM_CIHAZI_ILE_IMZALA",
-                "callid" => Uuid::uuid1()->toString(),
-                "pageName" => "RG_BASITTASLAKLAR",
-                "token" => $this->token,
-                "imzalanacaklar" => [$this->invoice->getSummary()]
-            ]
-        ]);
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_FATURA_HSM_CIHAZI_ILE_IMZALA",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_BASITTASLAKLAR",
+            "token" => $this->token,
+            "imzalanacaklar" => [$this->invoice->getSummary()]
+        ];
 
-        $body = json_decode($response->getBody(), true);
-
+        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
         $this->checkError($body);
 
         return $this;
@@ -470,19 +467,15 @@ class InvoiceManager {
                 "onayDurumu" => $signed ? "Onaylandı" : "Onaylanmadı"
         ];
 
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
-            "headers" => $this->headers,
-            "form_params" => [
-                "cmd" => "EARSIV_PORTAL_FATURA_GOSTER",
-                "callid" => Uuid::uuid1()->toString(),
-                "pageName" => "RG_TASLAKLAR",
-                "token" => $this->token,
-                "jp" => "".json_encode($data)."",
-            ]
-        ]);
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_FATURA_GOSTER",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_TASLAKLAR",
+            "token" => $this->token,
+            "jp" => "".json_encode($data)."",
+        ];
 
-        $body = json_decode($response->getBody(), true);
-
+        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
         $this->checkError($body);
 
         return $body["data"];
@@ -519,19 +512,16 @@ class InvoiceManager {
             "aciklama" => $reason
         ];
 
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
-            "headers" => $this->headers,
-            "form_params" => [
-                "cmd" => "EARSIV_PORTAL_FATURA_SIL",
-                "callid" => Uuid::uuid1()->toString(),
-                "pageName" => "RG_BASITTASLAKLAR",
-                "token" => $this->token,
-                "jp" => "".json_encode($data)."",
-            ]
-        ]);
 
-        $body = json_decode($response->getBody(), true);
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_FATURA_SIL",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_BASITTASLAKLAR",
+            "token" => $this->token,
+            "jp" => "".json_encode($data)."",
+        ];
 
+        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
         $this->checkError($body);
 
         if($body["data"] != "İptal edildi.")
@@ -564,18 +554,15 @@ class InvoiceManager {
             "ettn" => $this->invoice->getUuid()
         ];
 
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
-            "headers" => $this->headers,
-            "form_params" => [
-                "cmd" => "EARSIV_PORTAL_FATURA_GETIR",
-                "callid" => Uuid::uuid1()->toString(),
-                "pageName" => "RG_BASITFATURA",
-                "token" => $this->token,
-                "jp" => "".json_encode($data)."",
-            ]
-        ]);
-
-        $body = json_decode($response->getBody(), true);
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_FATURA_GETIR",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_BASITFATURA",
+            "token" => $this->token,
+            "jp" => "".json_encode($data)."",
+        ];
+        
+        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
 
         $this->checkError($body);
 
@@ -635,19 +622,15 @@ class InvoiceManager {
      */
     public function getUserInformationsData()
     {
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
-            "headers" => $this->headers,
-            "form_params" => [
-                "cmd" => "EARSIV_PORTAL_KULLANICI_BILGILERI_GETIR",
-                "callid" => Uuid::uuid1()->toString(),
-                "pageName" => "RG_KULLANICI",
-                "token" => $this->token,
-                "jp" => "{}",
-            ]
-        ]);
-        
-        $body = json_decode($response->getBody(), true);
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_KULLANICI_BILGILERI_GETIR",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_KULLANICI",
+            "token" => $this->token,
+            "jp" => "{}",
+        ];
 
+        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
         $this->checkError($body);
 
         $userInformations = new UserInformations($body["data"]);
@@ -672,20 +655,15 @@ class InvoiceManager {
             throw new Exception("User informations null");
         }
         
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_KULLANICI_BILGILERI_KAYDET",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_KULLANICI",
+            "token" => $this->token,
+            "jp" => "".json_encode($this->userInformations->export())."",
+        ];
 
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
-            "headers" => $this->headers,
-            "form_params" => [
-                "cmd" => "EARSIV_PORTAL_KULLANICI_BILGILERI_KAYDET",
-                "callid" => Uuid::uuid1()->toString(),
-                "pageName" => "RG_KULLANICI",
-                "token" => $this->token,
-                "jp" => "".json_encode($this->userInformations->export())."",
-            ]
-        ]);
-        
-        $body = json_decode($response->getBody(), true);
-
+        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
         $this->checkError($body);
 
         return $body["data"];
@@ -705,21 +683,19 @@ class InvoiceManager {
             "TIP" => ""
         ];
 
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
-            "headers" => $this->headers,
-            "form_params" => [
-                "cmd" => "EARSIV_PORTAL_SMSSIFRE_GONDER",
-                "callid" => Uuid::uuid1()->toString(),
-                "pageName" => "RG_SMSONAY",
-                "token" => $this->token,
-                "jp" => "".json_encode($data)."",
-            ]
-        ]);
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_SMSSIFRE_GONDER",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_SMSONAY",
+            "token" => $this->token,
+            "jp" => "".json_encode($data)."",
+        ];
         
-        $body = json_decode($response->getBody(), true);
-
+        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
         $this->checkError($body);
+
         $this->oid = $body["data"]["oid"];
+
         return $this->oid;
     }
 
@@ -736,20 +712,17 @@ class InvoiceManager {
             "OID" => $operationId
         ];
 
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/dispatch", [
-            "headers" => $this->headers,
-            "form_params" => [
-                "cmd" => "EARSIV_PORTAL_SMSSIFRE_GONDER",
-                "callid" => Uuid::uuid1()->toString(),
-                "pageName" => "RG_SMSONAY",
-                "token" => $this->token,
-                "jp" => "".json_encode($data)."",
-            ]
-        ]);
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_SMSSIFRE_GONDER",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_SMSONAY",
+            "token" => $this->token,
+            "jp" => "".json_encode($data)."",
+        ];
         
-        $body = json_decode($response->getBody(), true);
-
+        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
         $this->checkError($body);
+
         return true;
     }
 
