@@ -1,7 +1,11 @@
 <?php 
 namespace furkankadioglu\eFatura;
 
+use furkankadioglu\eFatura\Models\Country;
+use furkankadioglu\eFatura\Models\CurrencyType;
 use furkankadioglu\eFatura\Models\Invoice;
+use furkankadioglu\eFatura\Models\InvoiceType;
+use furkankadioglu\eFatura\Models\UnitType;
 use PHPUnit\Framework\TestCase;
 
 class InvoiceTest extends TestCase
@@ -114,6 +118,16 @@ class InvoiceTest extends TestCase
         $this->assertEquals("ZReportNumber", $inv->getZReportNumber());
         $inv->setOkcSerialNumber("OkcSerialNumber");
         $this->assertEquals("OkcSerialNumber", $inv->getOkcSerialNumber());
+    }
 
+    /**
+     * @test
+     */
+    public function checkConstants()
+    {
+        $this->assertEquals("Birleşik Krallik", Country::BIRLESIK_KRALLIK);
+        $this->assertEquals("TRY", CurrencyType::TURK_LIRASI);
+        $this->assertEquals("HKSKOMISYONCU", InvoiceType::HAL_TIPI_FATURA_KOMISYONCU);
+        $this->assertEquals("DAY", UnitType::GUN);
     }
 }
