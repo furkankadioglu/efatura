@@ -1363,8 +1363,8 @@ class Invoice {
     {
         $value = (string) str_replace(".", "", $value);
         $number_to_words = new NumberToWords();
-        $currency_transformer = $number_to_words->getCurrencyTransformer($this->language);
-        $words = mb_strtoupper($currency_transformer->toWords($value, $this->language), 'utf-8');
+        $currency_transformer = $number_to_words->getCurrencyTransformer("tr");
+        $words = mb_strtoupper($currency_transformer->toWords($value, "TRY"), 'utf-8');
         return $words;
     }
 }
