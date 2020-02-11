@@ -38,8 +38,9 @@ https://earsivportaltest.efatura.gov.tr/login.jsp
 - Faturanın indirme adresini alma.
 - Faturayı iptal etme.
 - Varolan bir faturayı sorgulama.
-- Kullanıcı bilgilerini çekme (Şirketinizin temel bilgileri)
-- Kullanıcı bilgilerini güncelleme 
+- Kullanıcı bilgilerini çekme. (Şirketinizin temel bilgileri)
+- Kullanıcı bilgilerini güncelleme.
+- SMS ile Fatura doğrulama ve onaylama.
 
 ### 🚩Örnekler
 
@@ -219,6 +220,16 @@ $client->getDownloadURL();
 **Faturayı iptal etmek için:**
 ```php
 $client->cancelInvoice();
+```
+
+**SMS doğrulaması yapmak için:**
+```php
+$client->sendSMSVerification($telefon); // Operasyon id döndürür.
+```
+
+**SMS doğrulamasını onaylamak için:**
+```php
+$client->verifySMSVerification($kod, $operasyonId);
 ```
 
 **Varolan bir faturayı sorgulamak için:**
