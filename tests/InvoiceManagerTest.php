@@ -150,6 +150,18 @@ class InvoiceManagerTest extends TestCase
         $managerInv = $client->getInvoice();
 
         $this->assertEquals($fatura_detaylari["faturaTarihi"], $managerInv->getDate());
+    }
+
+    /**
+     * @test
+     */
+    public function getAndCheckToken()
+    {
+        $client = new InvoiceManager();
+        $token = $client->setDebugMode(true)->setTestCredentials()->getTokenFromApi();
+
+        $this->assertNotEquals(null , $token);
+        $this->assertNotEquals("" , $token);
 
     }
 }
