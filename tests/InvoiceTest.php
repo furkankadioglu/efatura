@@ -18,9 +18,9 @@ class InvoiceTest extends TestCase
     {
         $client = new InvoiceManager();
         $inv = new Invoice();
-
-        $inv->setUuid(Uuid::uuid1()->toString());
-        $this->assertEquals("Uuid", $inv->getUuid());
+        $uuid = Uuid::uuid1()->toString();
+        $inv->setUuid($uuid);
+        $this->assertEquals($uuid, $inv->getUuid());
         $inv->setDocumentNumber("DocumentNumber");
         $this->assertEquals("DocumentNumber", $inv->getDocumentNumber());
         $inv->setDate("Date");
