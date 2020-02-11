@@ -488,6 +488,13 @@ class InvoiceManager {
         return $body["data"];
     }
 
+    /**
+     * PDF Export
+     *
+     * @param Invoice $invoice
+     * @param boolean $signed
+     * @return Mpdf\Mpdf
+     */
     public function getInvoicePDF(Invoice $invoice = null, $signed = true)
     {
         $data = $this->getInvoiceHTML($invoice, $signed);
