@@ -41,6 +41,7 @@ https://earsivportaltest.efatura.gov.tr/login.jsp
 - Kullanıcı bilgilerini çekme. (Şirketinizin temel bilgileri)
 - Kullanıcı bilgilerini güncelleme.
 - SMS ile Fatura doğrulama ve onaylama.
+- Faturayı PDF olarak çıktı alma.
 
 ### 🚩Örnekler
 
@@ -212,6 +213,11 @@ $client->signDraftInvoice();
 $client->getInvoiceHTML();
 ```
 
+**PDF çıktısını almak için:**
+```php
+$client->getInvoicePDF();
+```
+
 **İndirme linkini almak için:**
 ```php
 $client->getDownloadURL();
@@ -246,11 +252,12 @@ $client->setInvoice($oldInvoice)->getInvoiceFromAPI();
 
 Uzun gelmiş olabilir. 😂 Gayet doğal, chain methodlar ile hayatımızı kolaylaştırıyoruz. Tek satırda işimizi halledelim:
 ```php
-$client->setDebugMode(true)
-->setTestCredentials()
-->setInvoice($inv)
-->createDraftBasicInvoice()
-->getDownloadURL();
+$client->setDebugMode(true) // Test urlsine geçtik 
+->setTestCredentials() // Test bilgilerini aldık
+->setInvoice($inv) // Faturamızı sınıfa tanımladık
+->createDraftBasicInvoice() // Taslak faturamızı oluşturduk
+->signDraftInvoice() // Faturamızı onayladık
+->getDownloadURL(); // İndirme adresini aldık
 
 // https://earsivportaltest.efatura.gov.tr/earsiv-services/download?token=b8b6c261c511a9b2757279c0111b538a2f02d98ae2df6205448d002687cab8cf74ce04d187bf0c6ce839dee40a6a8aad003aa6d5946ba02a0942ceb10bde327f&ettn=85933f42-4ab1-11ea-922e-acde48001122&belgeTip=FATURA&onayDurumu=Onaylandı&cmd=downloadResource
 ```
