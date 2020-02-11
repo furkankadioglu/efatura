@@ -33,7 +33,7 @@ https://earsivportaltest.efatura.gov.tr/login.jsp
 - Menü listesini görüntüleme.
 - Fatura detaylarını görüntüleme.
 - Türkçe veya İngilizce seçenekleriyle fatura modeli oluşturma.
-- Cihaz aracılığıyla fatura imzalama/onaylama.
+- Fatura imzalama/onaylama.
 - Faturayı HTML olarak çıktı alma.
 - Faturanın indirme adresini alma.
 - Faturayı iptal etme.
@@ -204,7 +204,7 @@ $client->sendUserInformationsData(); // Sunucuya gönder.
 
 **Onaylamak için:**
 ```php
-$client->signDraftInvoiceWithDevice();
+$client->signDraftInvoice();
 ```
 **HTML çıktısını almak için:**
 ```php
