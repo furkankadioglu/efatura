@@ -391,12 +391,24 @@ class InvoiceManager {
     }
 
     /**
-     * Sign a certificate with device
+     * Sign a draft invoice
      *
      * @param Invoice $invoice
      * @return void
      */
     public function signDraftInvoiceWithDevice(Invoice $invoice = null)
+    {
+        $this->signDraftInvoice();
+        return $this;
+    }
+
+    /**
+     * Sign a certificate with device
+     *
+     * @param Invoice $invoice
+     * @return void
+     */
+    public function signDraftInvoice(Invoice $invoice = null)
     {
         if($invoice != null)
         {
