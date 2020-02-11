@@ -2,6 +2,7 @@
 
 namespace furkankadioglu\eFatura\Models;
 
+use furkankadioglu\eFatura\Exceptions\ValidatorException;
 use furkankadioglu\eFatura\Traits\Exportable;
 use NumberToWords\NumberToWords;
 use Rhumsaa\Uuid\Uuid;
@@ -64,6 +65,7 @@ class Invoice {
     public function __construct($data = [])
     {
         $this->mapWithEnglishKeys($data);
+        $this->insertChecks($data);
     }
 
     public function mapWithTurkishKeys($data)
@@ -118,6 +120,8 @@ class Invoice {
         $this->voucherType = isset($data["fisTipi"]) ? $data["fisTipi"] : "";
         $this->zReportNumber = isset($data["zRaporNo"]) ? $data["zRaporNo"] : "";
         $this->okcSerialNumber = isset($data["okcSeriNo"]) ? $data["okcSeriNo"] : "";
+
+        $this->insertChecks($data);
     }
 
     public function mapWithEnglishKeys($data)
@@ -172,6 +176,34 @@ class Invoice {
         $this->voucherType = isset($data["voucherType"]) ? $data["voucherType"] : "";
         $this->zReportNumber = isset($data["zReportNumber"]) ? $data["zReportNumber"] : "";
         $this->okcSerialNumber = isset($data["okcSerialNumber"]) ? $data["okcSerialNumber"] : "";
+
+        $this->insertChecks($data);
+    }
+    
+    /**
+     * Data insert checks
+     *
+     * @param array $data
+     * @return void
+     */
+    private function insertChecks($data)
+    {
+        if($data["uuid"])
+        {
+            if(!Uuid::isValid($data["uuid"]))
+            {
+                throw new ValidatorException("UUID Hatalı");
+            }
+        }
+
+        if($data["faturaUuid"])
+        {
+            if(!Uuid::isValid($data["faturaUuid"]))
+            {
+                throw new ValidatorException("UUID Hatalı");
+            }
+        }
+        
     }
 
     /**
@@ -270,6 +302,11 @@ class Invoice {
      */ 
     public function setUuid($uuid)
     {
+        if(!Uuid::isValid($uuid))
+        {
+            throw new ValidatorException("UUID Hatalı");
+        }
+        
         $this->uuid = $uuid;
 
         return $this;
