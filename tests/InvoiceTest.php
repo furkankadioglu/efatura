@@ -7,6 +7,7 @@ use furkankadioglu\eFatura\Models\Invoice;
 use furkankadioglu\eFatura\Models\InvoiceType;
 use furkankadioglu\eFatura\Models\UnitType;
 use PHPUnit\Framework\TestCase;
+use Rhumsaa\Uuid\Uuid;
 
 class InvoiceTest extends TestCase
 {
@@ -18,7 +19,7 @@ class InvoiceTest extends TestCase
         $client = new InvoiceManager();
         $inv = new Invoice();
 
-        $inv->setUuid("Uuid");
+        $inv->setUuid(Uuid::uuid1()->toString());
         $this->assertEquals("Uuid", $inv->getUuid());
         $inv->setDocumentNumber("DocumentNumber");
         $this->assertEquals("DocumentNumber", $inv->getDocumentNumber());

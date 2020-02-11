@@ -188,7 +188,7 @@ class Invoice {
      */
     private function insertChecks($data)
     {
-        if($data["uuid"])
+        if(isset($data["uuid"]))
         {
             if(!Uuid::isValid($data["uuid"]))
             {
@@ -196,7 +196,7 @@ class Invoice {
             }
         }
 
-        if($data["faturaUuid"])
+        if(isset($data["faturaUuid"]))
         {
             if(!Uuid::isValid($data["faturaUuid"]))
             {
