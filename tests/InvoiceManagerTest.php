@@ -164,4 +164,15 @@ class InvoiceManagerTest extends TestCase
         $this->assertNotEquals("" , $token);
 
     }
+
+    /**
+     * @test
+     */
+    public function getInvoicesFromAPI()
+    {
+        $client = new InvoiceManager();
+        $client->setDebugMode(true)->setTestCredentials()->connect();
+        $invoices = $client->getInvoicesFromAPI("01/01/2020", "10/02/2020");
+        $this->assertIsArray($invoices);
+    }
 }
