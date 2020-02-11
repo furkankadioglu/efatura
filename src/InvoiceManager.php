@@ -3,6 +3,7 @@
 namespace furkankadioglu\eFatura;
 
 use Exception;
+use furkankadioglu\eFatura\Exceptions\TestEnvironmentException;
 use GuzzleHttp\Client;
 use Rhumsaa\Uuid\Uuid;
 use furkankadioglu\eFatura\Models\Invoice;
@@ -175,6 +176,12 @@ class InvoiceManager {
         $body = json_decode($response->getBody(), true);
 
         $this->checkError($body);
+
+        if(isset($body["userid"]) AND $body["userid"] == "")
+        {
+            throw new TestEnvironmentException("eArsiv test kullanıcısı alınamadı. Lütfen daha sonra deneyin.");
+        }
+
         $this->username = $body["userid"];
         $this->password = "1";
         return $this;
