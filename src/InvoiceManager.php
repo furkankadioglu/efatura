@@ -17,6 +17,13 @@ class InvoiceManager {
     const TEST_URL = "https://earsivportaltest.efatura.gov.tr";
 
     /**
+     * Api Paths
+     */
+    const DISPATCH_PATH = "/earsiv-services/dispatch";
+    const TOKEN_PATH = "/earsiv-services/assos-login";
+    const REFERRER_PATH = "/intragiris.html";
+
+    /**
      * Username field for auth
      *
      * @var string
@@ -115,7 +122,7 @@ class InvoiceManager {
      */
     public function __construct()
     {
-        $this->referrer = $this->getBaseUrl()."/intragiris.html";
+        $this->referrer = $this->getBaseUrl().self::REFERRER_PATH;
         $this->headers["referrer"] = $this->referrer;
 
         $this->client = new Client($this->headers);
@@ -271,7 +278,7 @@ class InvoiceManager {
             "parola" => "1"
         ];
 
-        $body = $this->sendRequestAndGetBody("/earsiv-services/assos-login", $parameters, []);
+        $body = $this->sendRequestAndGetBody(self::TOKEN_PATH, $parameters, []);
         $this->checkError($body);
 
         return $this->token = $body["token"];
@@ -331,7 +338,7 @@ class InvoiceManager {
             "jp" => '{"baslangic":"'.$startDate.'","bitis":"'.$endDate.'","table":[]}'
         ];
         
-        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
         return $body;
@@ -357,7 +364,7 @@ class InvoiceManager {
             "jp" => '{"ANONIM_LOGIN":"1"}'
         ];
 
-        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters, $headers);
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters, $headers);
         $this->checkError($body);
 
         return $body["data"];
@@ -389,7 +396,7 @@ class InvoiceManager {
             "jp" => "".json_encode($this->invoice->export()).""
         ];
 
-        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
         if($body["data"] != "Faturanız başarıyla taslaklara eklenmiştir.")
@@ -438,7 +445,7 @@ class InvoiceManager {
             "imzalanacaklar" => [$this->invoice->getSummary()]
         ];
 
-        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
         return $this;
@@ -475,7 +482,7 @@ class InvoiceManager {
             "jp" => "".json_encode($data)."",
         ];
 
-        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
         return $body["data"];
@@ -521,7 +528,7 @@ class InvoiceManager {
             "jp" => "".json_encode($data)."",
         ];
 
-        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
         if($body["data"] != "İptal edildi.")
@@ -562,7 +569,7 @@ class InvoiceManager {
             "jp" => "".json_encode($data)."",
         ];
         
-        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
 
         $this->checkError($body);
 
@@ -630,7 +637,7 @@ class InvoiceManager {
             "jp" => "{}",
         ];
 
-        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
         $userInformations = new UserInformations($body["data"]);
@@ -663,7 +670,7 @@ class InvoiceManager {
             "jp" => "".json_encode($this->userInformations->export())."",
         ];
 
-        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
         return $body["data"];
@@ -691,7 +698,7 @@ class InvoiceManager {
             "jp" => "".json_encode($data)."",
         ];
         
-        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
         $this->oid = $body["data"]["oid"];
@@ -720,7 +727,7 @@ class InvoiceManager {
             "jp" => "".json_encode($data)."",
         ];
         
-        $body = $this->sendRequestAndGetBody("/earsiv-services/dispatch", $parameters);
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
         return true;
