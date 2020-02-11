@@ -235,7 +235,7 @@ $client->sendSMSVerification($telefon); // Operasyon id döndürür.
 
 **SMS doğrulamasını onaylamak için:**
 ```php
-$client->verifySMSVerification($kod, $operasyonId);
+$client->verifySMSCode($kod, $operasyonId);
 ```
 
 **Varolan bir faturayı sorgulamak için:**

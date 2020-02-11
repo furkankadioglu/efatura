@@ -726,7 +726,7 @@ class InvoiceManager {
      * @param string $phoneNumber
      * @return array
      */
-    public function verifySMSVerification($code, $operationId)
+    public function verifySMSCode($code, $operationId)
     {
         $data = [
             "SIFRE" => $code,
