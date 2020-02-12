@@ -3,6 +3,7 @@
 namespace furkankadioglu\eFatura;
 
 use Exception;
+use furkankadioglu\eFatura\Exceptions\ApiException;
 use furkankadioglu\eFatura\Exceptions\TestEnvironmentException;
 use GuzzleHttp\Client;
 use Rhumsaa\Uuid\Uuid;
@@ -302,7 +303,7 @@ class InvoiceManager {
     {
         if(isset($jsonData["error"]))
         {
-            throw new Exception("Bir hata oluştu! \t \n".print_r($jsonData));
+            throw new ApiException("Bir hata oluştu! \t \n".print_r($jsonData));
         }
     }
 
