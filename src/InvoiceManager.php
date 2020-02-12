@@ -6,10 +6,10 @@ use Exception;
 use furkankadioglu\eFatura\Exceptions\ApiException;
 use furkankadioglu\eFatura\Exceptions\NullDataException;
 use furkankadioglu\eFatura\Exceptions\TestEnvironmentException;
-use GuzzleHttp\Client;
-use Rhumsaa\Uuid\Uuid;
 use furkankadioglu\eFatura\Models\Invoice;
 use furkankadioglu\eFatura\Models\UserInformations;
+use GuzzleHttp\Client;
+use Rhumsaa\Uuid\Uuid;
 use Mpdf\Mpdf;
 
 class InvoiceManager {
@@ -410,7 +410,7 @@ class InvoiceManager {
 
         if($body["data"] != "Faturanız başarıyla taslaklara eklenmiştir.")
         {
-            throw new Exception("Fatura oluşturulamadı.");
+            throw new ApiException("Fatura oluşturulamadı.");
         }
 
         return $this;
@@ -549,7 +549,7 @@ class InvoiceManager {
 
         if($body["data"] != "İptal edildi.")
         {
-            throw new Exception("Fatura iptal edilemedi.");
+            throw new ApiException("Fatura iptal edilemedi.");
         }
 
         return true;
@@ -675,7 +675,7 @@ class InvoiceManager {
 
         if($this->userInformations == null)
         {
-            throw new Exception("User informations null");
+            throw new NullDataException("User informations data not exist");
         }
         
         $parameters = [
