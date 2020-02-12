@@ -4,6 +4,7 @@ namespace furkankadioglu\eFatura;
 
 use Exception;
 use furkankadioglu\eFatura\Exceptions\ApiException;
+use furkankadioglu\eFatura\Exceptions\NullDataException;
 use furkankadioglu\eFatura\Exceptions\TestEnvironmentException;
 use GuzzleHttp\Client;
 use Rhumsaa\Uuid\Uuid;
@@ -393,7 +394,7 @@ class InvoiceManager {
 
         if($this->invoice == null)
         {
-            throw new Exception("Invoice null");
+            throw new NullDataException("Invoice variable not exist");
         }
 
         $parameters = [
@@ -442,7 +443,7 @@ class InvoiceManager {
 
         if($this->invoice == null)
         {
-            throw new Exception("Invoice null");
+            throw new NullDataException("Invoice variable not exist");
         }
 
         $parameters = [
@@ -474,7 +475,7 @@ class InvoiceManager {
 
         if($this->invoice == null)
         {
-            throw new Exception("Invoice null");
+            throw new NullDataException("Invoice variable not exist");
         }
 
         $data = [
@@ -526,7 +527,7 @@ class InvoiceManager {
 
         if($this->invoice == null)
         {
-            throw new Exception("Invoice null");
+            throw new NullDataException("Invoice variable not exist");
         }
 
         $data = [
@@ -569,7 +570,7 @@ class InvoiceManager {
 
         if($this->invoice == null)
         {
-            throw new Exception("Invoice null");
+            throw new NullDataException("Invoice variable not exist");
         }
 
         $data = [
@@ -607,7 +608,7 @@ class InvoiceManager {
 
         if($this->invoice == null)
         {
-            throw new Exception("Invoice null");
+            throw new NullDataException("Invoice variable not exist");
         }
         
         $signed = $signed ? "Onaylandı" : "Onaylanmadı";
