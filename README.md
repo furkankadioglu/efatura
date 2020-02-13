@@ -70,7 +70,7 @@ Ayrıca bilgilerinizi görüntülemek isterseniz:
 $client->getCredentials();
 ```
 
-**Fatura Oluşturma**
+**Faturalandırma**
 
 Faturaların listelenmesi aşağıdaki şekilde yapılıyor:
 ```php
