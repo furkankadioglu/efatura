@@ -70,7 +70,8 @@ Ayrıca bilgilerinizi görüntülemek isterseniz:
 $client->getCredentials();
 ```
 
-Bilgilerimizi tanımladıktan sonra giriş yapıp token almak için:
+Bilgilerimizi tanımladıktan sonra giriş yapıp token almak içinse:
+(Bu işlem olmadan diğer adımlara geçilemez)
 ```php
 $client->connect();
 ```
@@ -87,7 +88,7 @@ Yeni bir fatura oluşturmak isterseniz, bir kaç seçeneğiniz mevcut, kullanım
 Örnek olarak şu şekilde bir fatura oluşturabiliriz:
 ```php
 $fatura_detaylari  = [
-"belgeNumarasi"  =>  "",
+"belgeNumarasi"  =>  "", // Zorunlu değil
 "faturaTarihi"  =>  "08/02/2020",
 "saat"  =>  "09:07:48",
 "paraBirimi"  =>  "TRY",
@@ -97,25 +98,25 @@ $fatura_detaylari  = [
 "aliciUnvan"  =>  "FURKAN KADIOGLU",
 "aliciAdi"  =>  "FURKAN",
 "aliciSoyadi"  =>  "KADIOGLU",
-"binaAdi"  =>  "",
-"binaNo"  =>  "",
-"kapiNo"  =>  "",
-"kasabaKoy"  =>  "",
+"binaAdi"  =>  "", // Zorunlu değil
+"binaNo"  =>  "", // Zorunlu değil
+"kapiNo"  =>  "", // Zorunlu değil
+"kasabaKoy"  =>  "", // Zorunlu değil
 "vergiDairesi"  =>  "MALTEPE",
 "ulke"  =>  "Türkiye",
 "bulvarcaddesokak"  =>  "DENEME SK. DENEME MAH.",
-"mahalleSemtIlce"  =>  "",
+"mahalleSemtIlce"  =>  "", // Zorunlu değil
 "sehir"  =>  " ",
-"postaKodu"  =>  "",
-"tel"  =>  "",
-"fax"  =>  "",
-"eposta"  =>  "",
-"websitesi"  =>  "",
-"iadeTable"  => [],
-"ozelMatrahTutari"  =>  "0",
-"ozelMatrahOrani"  =>  0,
-"ozelMatrahVergiTutari"  =>  "0",
-"vergiCesidi"  =>  " ",
+"postaKodu"  =>  "", // Zorunlu değil
+"tel"  =>  "", // Zorunlu değil
+"fax"  =>  "", // Zorunlu değil
+"eposta"  =>  "", // Zorunlu değil
+"websitesi"  =>  "", // Zorunlu değil
+"iadeTable"  => [], // Zorunlu değil
+"ozelMatrahTutari"  =>  "0", // Zorunlu değil
+"ozelMatrahOrani"  =>  0, // Zorunlu değil
+"ozelMatrahVergiTutari"  =>  "0", // Zorunlu değil
+"vergiCesidi"  =>  " ", // Zorunlu değil
 "malHizmetTable"  => [],
 "tip"  =>  "İskonto",
 "matrah"  =>  100,
@@ -125,17 +126,17 @@ $fatura_detaylari  = [
 "vergilerToplami"  =>  18,
 "vergilerDahilToplamTutar"  =>  118,
 "odenecekTutar"  =>  118,
-"not"  =>  "xxx",
-"siparisNumarasi"  =>  "",
-"siparisTarihi"  =>  "",
-"irsaliyeNumarasi"  =>  "",
-"irsaliyeTarihi"  =>  "",
-"fisNo"  =>  "",
-"fisTarihi"  =>  "",
-"fisSaati"  =>  " ",
-"fisTipi"  =>  " ",
-"zRaporNo"  =>  "",
-"okcSeriNo"  =>  ""
+"not"  =>  "xxx", // Zorunlu değil
+"siparisNumarasi"  =>  "", // Zorunlu değil
+"siparisTarihi"  =>  "", // Zorunlu değil
+"irsaliyeNumarasi"  =>  "", // Zorunlu değil
+"irsaliyeTarihi"  =>  "", // Zorunlu değil
+"fisNo"  =>  "", // Zorunlu değil
+"fisTarihi"  =>  "", // Zorunlu değil
+"fisSaati"  =>  " ", // Zorunlu değil
+"fisTipi"  =>  " ", // Zorunlu değil
+"zRaporNo"  =>  "", // Zorunlu değil
+"okcSeriNo"  =>  "" // Zorunlu değil
 ];
 ```
 Faturayı oluşturmak yetmez tabi, ürün veya hizmet de girmek lazım, oda şu şekilde oluyor.
