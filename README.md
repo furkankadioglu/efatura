@@ -70,6 +70,11 @@ Ayrıca bilgilerinizi görüntülemek isterseniz:
 $client->getCredentials();
 ```
 
+Bilgilerimizi tanımladıktan sonra giriş yapıp token almak için:
+```php
+$client->connect();
+```
+
 **Faturalandırma**
 
 Faturaların listelenmesi aşağıdaki şekilde yapılıyor:
@@ -254,6 +259,7 @@ Uzun gelmiş olabilir. 😂 Gayet doğal, chain methodlar ile hayatımızı kola
 ```php
 $client->setDebugMode(true) // Test urlsine geçtik 
 ->setTestCredentials() // Test bilgilerini aldık
+->connect() // Bilgilerle birlikte sunucuya bağlanıp token aldık.
 ->setInvoice($inv) // Faturamızı sınıfa tanımladık
 ->createDraftBasicInvoice() // Taslak faturamızı oluşturduk
 ->signDraftInvoice() // Faturamızı onayladık
