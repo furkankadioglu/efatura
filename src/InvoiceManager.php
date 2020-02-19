@@ -295,6 +295,26 @@ class InvoiceManager {
     }
 
     /**
+     * Logout from API
+     *
+     * @return string
+     */
+    public function logOutFromAPI()
+    {
+        $parameters = [
+            "assoscmd" => "logout",
+            "rtype" => "json",
+            "token" => $this->token,
+
+        ];
+
+        $body = $this->sendRequestAndGetBody(self::TOKEN_PATH, $parameters, []);
+        $this->checkError($body);
+        $this->token = null;
+        return true;
+    }
+
+    /**
      * Check error, if exist throw it!
      *
      * @param array $jsonData
