@@ -244,6 +244,12 @@ $client->sendSMSVerification($telefon); // Operasyon id döndürür.
 $client->verifySMSCode($kod, $operasyonId);
 ```
 
+
+**Çıkış yapıp, oturumu kapatmak için:**
+```php
+$client->logOutFromAPI();
+```
+
 **Varolan bir faturayı sorgulamak için:**
 ```php
 $oldInvoice = new Invoice();
