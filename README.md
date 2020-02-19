@@ -28,6 +28,7 @@ https://earsivportaltest.efatura.gov.tr/login.jsp
 
 ### 🚩Özellikler
 
+- eArşiv oturumunu açma ve sonlandırma.
 - Fatura oluşturma.
 - İki tarih arası fatura sorgulama.
 - Menü listesini görüntüleme.
