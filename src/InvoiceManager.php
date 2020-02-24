@@ -351,6 +351,28 @@ class InvoiceManager {
     }
 
     /**
+    * Get company name from tax number via api
+    *
+    * @param string $taxNr
+    * @return array
+    */
+    public function getCompanyInfo($taxNr)
+    {
+        $parameters = [
+            "cmd" => "SICIL_VEYA_MERNISTEN_BILGILERI_GETIR",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_BASITFATURA",
+            "token" => $this->token,
+            "jp" => '{"vknTcknn":"'.$taxNr.'"}'
+        ];
+        
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
+        $this->checkError($body);
+
+        return $body;
+    }
+    
+    /**
      * Get invoices from api
      *
      * @param string $startDate
