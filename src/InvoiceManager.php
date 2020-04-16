@@ -324,7 +324,7 @@ class InvoiceManager {
     {
         if(isset($jsonData["error"]))
         {
-            throw new ApiException("Bir hata oluştu! \t \n".print_r($jsonData));
+            throw new ApiException("Bir hata oluştu!");
         }
     }
 
@@ -793,5 +793,3 @@ class InvoiceManager {
 
 
 }
-
-?>
