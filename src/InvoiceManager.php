@@ -9,7 +9,7 @@ use furkankadioglu\eFatura\Exceptions\TestEnvironmentException;
 use furkankadioglu\eFatura\Models\Invoice;
 use furkankadioglu\eFatura\Models\UserInformations;
 use GuzzleHttp\Client;
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
 use Mpdf\Mpdf;
 
 class InvoiceManager
