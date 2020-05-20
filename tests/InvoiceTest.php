@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace furkankadioglu\eFatura;
 
 use furkankadioglu\eFatura\Models\Country;
@@ -7,7 +8,7 @@ use furkankadioglu\eFatura\Models\Invoice;
 use furkankadioglu\eFatura\Models\InvoiceType;
 use furkankadioglu\eFatura\Models\UnitType;
 use PHPUnit\Framework\TestCase;
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
 
 class InvoiceTest extends TestCase
 {

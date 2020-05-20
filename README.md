@@ -245,6 +245,10 @@ $client->sendSMSVerification($telefon); // Operasyon id döndürür.
 $client->verifySMSCode($kod, $operasyonId);
 ```
 
+**Kişi veya kurumun bilgilerini çekmek için:**
+```php
+$client->getCompanyInfo($TCKimlikNoVeyaVergiNo);
+```
 
 **Çıkış yapıp, oturumu kapatmak için:**
 ```php

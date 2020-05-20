@@ -9,10 +9,11 @@ use furkankadioglu\eFatura\Exceptions\TestEnvironmentException;
 use furkankadioglu\eFatura\Models\Invoice;
 use furkankadioglu\eFatura\Models\UserInformations;
 use GuzzleHttp\Client;
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
 use Mpdf\Mpdf;
 
-class InvoiceManager {
+class InvoiceManager
+{
     /**
      * Api Urls
      */
@@ -125,7 +126,7 @@ class InvoiceManager {
      */
     public function __construct()
     {
-        $this->referrer = $this->getBaseUrl().self::REFERRER_PATH;
+        $this->referrer = $this->getBaseUrl() . self::REFERRER_PATH;
         $this->headers["referrer"] = $this->referrer;
 
         $this->client = new Client($this->headers);
@@ -169,7 +170,7 @@ class InvoiceManager {
 
     public function setTestCredentials()
     {
-        $response = $this->client->post($this->getBaseUrl()."/earsiv-services/esign", [
+        $response = $this->client->post($this->getBaseUrl() . "/earsiv-services/esign", [
             "form_params" => [
                 "assoscmd" => "kullaniciOner",
                 "rtype" => "json",
@@ -179,8 +180,7 @@ class InvoiceManager {
 
         $this->checkError($body);
 
-        if(isset($body["userid"]) AND $body["userid"] == "")
-        {
+        if (isset($body["userid"]) and $body["userid"] == "") {
             throw new TestEnvironmentException("eArsiv test kullanıcısı alınamadı. Lütfen daha sonra deneyin.");
         }
 
@@ -209,7 +209,7 @@ class InvoiceManager {
      * @param string $token
      * @return furkankadioglu\eFatura\InvoiceManager
      */
-    public function setToken($token) 
+    public function setToken($token)
     {
         $this->token = $token;
         return $token;
@@ -220,7 +220,8 @@ class InvoiceManager {
      *
      * @return furkankadioglu\eFatura\InvoiceManager
      */
-    public function connect() {
+    public function connect()
+    {
         $this->getTokenFromApi();
         return $this;
     }
@@ -245,8 +246,7 @@ class InvoiceManager {
      */
     public function getBaseUrl()
     {
-        if($this->debugMode)
-        {
+        if ($this->debugMode) {
             return self::TEST_URL;
         }
         return self::BASE_URL;
@@ -262,7 +262,7 @@ class InvoiceManager {
      */
     private function sendRequestAndGetBody($url, $parameters, $headers = null)
     {
-        $response = $this->client->post($this->getBaseUrl()."$url", [
+        $response = $this->client->post($this->getBaseUrl() . "$url", [
             "headers" => $headers ? $headers : $this->headers,
             "form_params" => $parameters
         ]);
@@ -291,7 +291,6 @@ class InvoiceManager {
         $this->checkError($body);
 
         return $this->token = $body["token"];
-
     }
 
     /**
@@ -322,9 +321,8 @@ class InvoiceManager {
      */
     private function checkError($jsonData)
     {
-        if(isset($jsonData["error"]))
-        {
-            throw new ApiException("Bir hata oluştu! \t \n".print_r($jsonData, true));
+        if (isset($jsonData["error"])) {
+            throw new ApiException("Sunucu taraflı bir hata oluştu!");
         }
     }
 
@@ -351,11 +349,11 @@ class InvoiceManager {
     }
 
     /**
-    * Get company name from tax number via api
-    *
-    * @param string $taxNr
-    * @return array
-    */
+     * Get company name from tax number via api
+     *
+     * @param string $taxNr
+     * @return array
+     */
     public function getCompanyInfo($taxNr)
     {
         $parameters = [
@@ -363,15 +361,15 @@ class InvoiceManager {
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "RG_BASITFATURA",
             "token" => $this->token,
-            "jp" => '{"vknTcknn":"'.$taxNr.'"}'
+            "jp" => '{"vknTcknn":"' . $taxNr . '"}'
         ];
-        
+
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
         return $body;
     }
-    
+
     /**
      * Get invoices from api
      *
@@ -386,9 +384,9 @@ class InvoiceManager {
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "RG_BASITTASLAKLAR",
             "token" => $this->token,
-            "jp" => '{"baslangic":"'.$startDate.'","bitis":"'.$endDate.'","table":[]}'
+            "jp" => '{"baslangic":"' . $startDate . '","bitis":"' . $endDate . '","table":[]}'
         ];
-        
+
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
@@ -411,7 +409,7 @@ class InvoiceManager {
             "cmd" => "getUserMenu",
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "MAINTREEMENU",
-            "token" => $this->token,    
+            "token" => $this->token,
             "jp" => '{"ANONIM_LOGIN":"1"}'
         ];
 
@@ -429,13 +427,11 @@ class InvoiceManager {
      */
     public function createDraftBasicInvoice(Invoice $invoice = null)
     {
-        if($invoice != null)
-        {
+        if ($invoice != null) {
             $this->invoice = $invoice;
         }
 
-        if($this->invoice == null)
-        {
+        if ($this->invoice == null) {
             throw new NullDataException("Invoice variable not exist");
         }
 
@@ -444,14 +440,13 @@ class InvoiceManager {
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "RG_FATURA",
             "token" => $this->token,
-            "jp" => "".json_encode($this->invoice->export()).""
+            "jp" => "" . json_encode($this->invoice->export()) . ""
         ];
 
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
-        if($body["data"] != "Faturanız başarıyla taslaklara eklenmiştir.")
-        {
+        if ($body["data"] != "Faturanız başarıyla taslaklara eklenmiştir.") {
             throw new ApiException("Fatura oluşturulamadı.");
         }
 
@@ -478,13 +473,11 @@ class InvoiceManager {
      */
     public function signDraftInvoice(Invoice $invoice = null)
     {
-        if($invoice != null)
-        {
+        if ($invoice != null) {
             $this->invoice = $invoice;
         }
 
-        if($this->invoice == null)
-        {
+        if ($this->invoice == null) {
             throw new NullDataException("Invoice variable not exist");
         }
 
@@ -510,19 +503,17 @@ class InvoiceManager {
      */
     public function getInvoiceHTML(Invoice $invoice = null, $signed = true)
     {
-        if($invoice != null)
-        {
+        if ($invoice != null) {
             $this->invoice = $invoice;
         }
 
-        if($this->invoice == null)
-        {
+        if ($this->invoice == null) {
             throw new NullDataException("Invoice variable not exist");
         }
 
         $data = [
-                "ettn" => $this->invoice->getUuid(),
-                "onayDurumu" => $signed ? "Onaylandı" : "Onaylanmadı"
+            "ettn" => $this->invoice->getUuid(),
+            "onayDurumu" => $signed ? "Onaylandı" : "Onaylanmadı"
         ];
 
         $parameters = [
@@ -530,7 +521,7 @@ class InvoiceManager {
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "RG_TASLAKLAR",
             "token" => $this->token,
-            "jp" => "".json_encode($data)."",
+            "jp" => "" . json_encode($data) . "",
         ];
 
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
@@ -562,13 +553,11 @@ class InvoiceManager {
      */
     public function cancelInvoice(Invoice $invoice = null, $reason = "Yanlış İşlem")
     {
-        if($invoice != null)
-        {
+        if ($invoice != null) {
             $this->invoice = $invoice;
         }
 
-        if($this->invoice == null)
-        {
+        if ($this->invoice == null) {
             throw new NullDataException("Invoice variable not exist");
         }
 
@@ -583,14 +572,13 @@ class InvoiceManager {
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "RG_BASITTASLAKLAR",
             "token" => $this->token,
-            "jp" => "".json_encode($data)."",
+            "jp" => "" . json_encode($data) . "",
         ];
 
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
-        if($body["data"] != "İptal edildi.")
-        {
+        if ($body["data"] != "İptal edildi.") {
             throw new ApiException("Fatura iptal edilemedi.");
         }
 
@@ -605,13 +593,11 @@ class InvoiceManager {
      */
     public function getInvoiceFromAPI(Invoice $invoice = null)
     {
-        if($invoice != null)
-        {
+        if ($invoice != null) {
             $this->invoice = $invoice;
         }
 
-        if($this->invoice == null)
-        {
+        if ($this->invoice == null) {
             throw new NullDataException("Invoice variable not exist");
         }
 
@@ -624,9 +610,9 @@ class InvoiceManager {
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "RG_BASITFATURA",
             "token" => $this->token,
-            "jp" => "".json_encode($data)."",
+            "jp" => "" . json_encode($data) . "",
         ];
-        
+
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
 
         $this->checkError($body);
@@ -643,19 +629,17 @@ class InvoiceManager {
      */
     public function getDownloadURL(Invoice $invoice = null, $signed = true)
     {
-        if($invoice != null)
-        {
+        if ($invoice != null) {
             $this->invoice = $invoice;
         }
 
-        if($this->invoice == null)
-        {
+        if ($this->invoice == null) {
             throw new NullDataException("Invoice variable not exist");
         }
-        
+
         $signed = $signed ? "Onaylandı" : "Onaylanmadı";
 
-        return $this->getBaseUrl()."/earsiv-services/download?token={$this->token}&ettn={$this->invoice->getUuid()}&belgeTip=FATURA&onayDurumu={$signed}&cmd=downloadResource";
+        return $this->getBaseUrl() . "/earsiv-services/download?token={$this->token}&ettn={$this->invoice->getUuid()}&belgeTip=FATURA&onayDurumu={$signed}&cmd=downloadResource";
     }
 
     /**
@@ -710,22 +694,20 @@ class InvoiceManager {
      */
     public function sendUserInformationsData(UserInformations $userInformations = null)
     {
-        if($userInformations != null)
-        {
+        if ($userInformations != null) {
             $this->userInformations = $userInformations;
         }
 
-        if($this->userInformations == null)
-        {
+        if ($this->userInformations == null) {
             throw new NullDataException("User informations data not exist");
         }
-        
+
         $parameters = [
             "cmd" => "EARSIV_PORTAL_KULLANICI_BILGILERI_KAYDET",
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "RG_KULLANICI",
             "token" => $this->token,
-            "jp" => "".json_encode($this->userInformations->export())."",
+            "jp" => "" . json_encode($this->userInformations->export()) . "",
         ];
 
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
@@ -753,9 +735,9 @@ class InvoiceManager {
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "RG_SMSONAY",
             "token" => $this->token,
-            "jp" => "".json_encode($data)."",
+            "jp" => "" . json_encode($data) . "",
         ];
-        
+
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
@@ -782,16 +764,12 @@ class InvoiceManager {
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "RG_SMSONAY",
             "token" => $this->token,
-            "jp" => "".json_encode($data)."",
+            "jp" => "" . json_encode($data) . "",
         ];
-        
+
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
         return true;
     }
-
-
 }
-
-?>

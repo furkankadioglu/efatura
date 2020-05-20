@@ -1,13 +1,14 @@
-<?php 
+<?php
 
 namespace furkankadioglu\eFatura\Models;
 
 use furkankadioglu\eFatura\Exceptions\ValidatorException;
 use furkankadioglu\eFatura\Traits\Exportable;
 use NumberToWords\NumberToWords;
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
 
-class Invoice {
+class Invoice
+{
 
     use Exportable;
 
@@ -40,7 +41,7 @@ class Invoice {
     protected $specialBaseAmount;      // Özel Matrah Tutarı 😅
     protected $specialBasePercent;     // Özel Matrah Oranı 😅
     protected $specialBaseTaxAmount;   // Özel Matrah Vergi Tutarı 😅
-    protected $taxType;                
+    protected $taxType;
     protected $itemOrServiceList;
     protected $type;
     protected $base;                   // Matrah
@@ -179,7 +180,7 @@ class Invoice {
 
         $this->insertChecks($data);
     }
-    
+
     /**
      * Data insert checks
      *
@@ -188,22 +189,17 @@ class Invoice {
      */
     private function insertChecks($data)
     {
-        if(isset($data["uuid"]))
-        {
-            if(!Uuid::isValid($data["uuid"]))
-            {
+        if (isset($data["uuid"])) {
+            if (!Uuid::isValid($data["uuid"])) {
                 throw new ValidatorException("UUID Hatalı");
             }
         }
 
-        if(isset($data["faturaUuid"]))
-        {
-            if(!Uuid::isValid($data["faturaUuid"]))
-            {
+        if (isset($data["faturaUuid"])) {
+            if (!Uuid::isValid($data["faturaUuid"])) {
                 throw new ValidatorException("UUID Hatalı");
             }
         }
-        
     }
 
     /**
@@ -282,14 +278,14 @@ class Invoice {
             "belgeTuru" => "FATURA",
             "ettn" => $this->uuid
         ];
-}
-    
+    }
+
 
     /**
      * Get the value of uuid
      * 
      * @return string
-     */ 
+     */
     public function getUuid()
     {
         return $this->uuid;
@@ -299,14 +295,13 @@ class Invoice {
      * Set the value of uuid
      *
      * @return  self
-     */ 
+     */
     public function setUuid($uuid)
     {
-        if(!Uuid::isValid($uuid))
-        {
+        if (!Uuid::isValid($uuid)) {
             throw new ValidatorException("UUID Hatalı");
         }
-        
+
         $this->uuid = $uuid;
 
         return $this;
@@ -316,7 +311,7 @@ class Invoice {
      * Get the value of documentNumber
      * 
      * @return string
-     */ 
+     */
     public function getDocumentNumber()
     {
         return $this->documentNumber;
@@ -326,7 +321,7 @@ class Invoice {
      * Set the value of documentNumber
      *
      * @return  self
-     */ 
+     */
     public function setDocumentNumber($documentNumber)
     {
         $this->documentNumber = $documentNumber;
@@ -338,7 +333,7 @@ class Invoice {
      * Get the value of date
      * 
      * @return string
-     */ 
+     */
     public function getDate()
     {
         return $this->date;
@@ -348,7 +343,7 @@ class Invoice {
      * Set the value of date
      *
      * @return  self
-     */ 
+     */
     public function setDate($date)
     {
         $this->date = $date;
@@ -360,7 +355,7 @@ class Invoice {
      * Get the value of time
      * 
      * @return string
-     */ 
+     */
     public function getTime()
     {
         return $this->time;
@@ -370,7 +365,7 @@ class Invoice {
      * Set the value of time
      *
      * @return  self
-     */ 
+     */
     public function setTime($time)
     {
         $this->time = $time;
@@ -382,7 +377,7 @@ class Invoice {
      * Get the value of currency
      * 
      * @return string
-     */ 
+     */
     public function getCurrency()
     {
         return $this->currency;
@@ -392,7 +387,7 @@ class Invoice {
      * Set the value of currency
      *
      * @return  self
-     */ 
+     */
     public function setCurrency($currency)
     {
         $this->currency = $currency;
@@ -404,7 +399,7 @@ class Invoice {
      * Get the value of currencyRate
      * 
      * @return string
-     */ 
+     */
     public function getCurrencyRate()
     {
         return $this->currencyRate;
@@ -414,7 +409,7 @@ class Invoice {
      * Set the value of currencyRate
      *
      * @return  self
-     */ 
+     */
     public function setCurrencyRate($currencyRate)
     {
         $this->currencyRate = $currencyRate;
@@ -426,7 +421,7 @@ class Invoice {
      * Get the value of invoiceType
      * 
      * @return string
-     */ 
+     */
     public function getInvoiceType()
     {
         return $this->invoiceType;
@@ -436,7 +431,7 @@ class Invoice {
      * Set the value of invoiceType
      *
      * @return  self
-     */ 
+     */
     public function setInvoiceType($invoiceType)
     {
         $this->invoiceType = $invoiceType;
@@ -448,7 +443,7 @@ class Invoice {
      * Get the value of taxOrIdentityNumber
      * 
      * @return string
-     */ 
+     */
     public function getTaxOrIdentityNumber()
     {
         return $this->taxOrIdentityNumber ? $this->taxOrIdentityNumber : "11111111111";
@@ -458,7 +453,7 @@ class Invoice {
      * Set the value of taxOrIdentityNumber
      *
      * @return  self
-     */ 
+     */
     public function setTaxOrIdentityNumber($taxOrIdentityNumber)
     {
         $this->taxOrIdentityNumber = $taxOrIdentityNumber;
@@ -470,7 +465,7 @@ class Invoice {
      * Get the value of invoiceAcceptorTitle
      * 
      * @return string
-     */ 
+     */
     public function getInvoiceAcceptorTitle()
     {
         return $this->invoiceAcceptorTitle;
@@ -480,7 +475,7 @@ class Invoice {
      * Set the value of invoiceAcceptorTitle
      *
      * @return  self
-     */ 
+     */
     public function setInvoiceAcceptorTitle($invoiceAcceptorTitle)
     {
         $this->invoiceAcceptorTitle = $invoiceAcceptorTitle;
@@ -492,7 +487,7 @@ class Invoice {
      * Get the value of invoiceAcceptorName
      * 
      * @return string
-     */ 
+     */
     public function getInvoiceAcceptorName()
     {
         return $this->invoiceAcceptorName;
@@ -502,7 +497,7 @@ class Invoice {
      * Set the value of invoiceAcceptorName
      *
      * @return  self
-     */ 
+     */
     public function setInvoiceAcceptorName($invoiceAcceptorName)
     {
         $this->invoiceAcceptorName = $invoiceAcceptorName;
@@ -514,7 +509,7 @@ class Invoice {
      * Get the value of invoiceAcceptorLastName
      * 
      * @return string
-     */ 
+     */
     public function getInvoiceAcceptorLastName()
     {
         return $this->invoiceAcceptorLastName;
@@ -524,7 +519,7 @@ class Invoice {
      * Set the value of invoiceAcceptorLastName
      *
      * @return  self
-     */ 
+     */
     public function setInvoiceAcceptorLastName($invoiceAcceptorLastName)
     {
         $this->invoiceAcceptorLastName = $invoiceAcceptorLastName;
@@ -536,7 +531,7 @@ class Invoice {
      * Get the value of buildingName
      * 
      * @return string
-     */ 
+     */
     public function getBuildingName()
     {
         return $this->buildingName;
@@ -546,7 +541,7 @@ class Invoice {
      * Set the value of buildingName
      *
      * @return  self
-     */ 
+     */
     public function setBuildingName($buildingName)
     {
         $this->buildingName = $buildingName;
@@ -558,7 +553,7 @@ class Invoice {
      * Get the value of buildingNumber
      * 
      * @return string
-     */ 
+     */
     public function getBuildingNumber()
     {
         return $this->buildingNumber;
@@ -568,7 +563,7 @@ class Invoice {
      * Set the value of buildingNumber
      *
      * @return  self
-     */ 
+     */
     public function setBuildingNumber($buildingNumber)
     {
         $this->buildingNumber = $buildingNumber;
@@ -580,7 +575,7 @@ class Invoice {
      * Get the value of doorNumber
      * 
      * @return string
-     */ 
+     */
     public function getDoorNumber()
     {
         return $this->doorNumber;
@@ -590,7 +585,7 @@ class Invoice {
      * Set the value of doorNumber
      *
      * @return  self
-     */ 
+     */
     public function setDoorNumber($doorNumber)
     {
         $this->doorNumber = $doorNumber;
@@ -602,7 +597,7 @@ class Invoice {
      * Get the value of town
      * 
      * @return string
-     */ 
+     */
     public function getTown()
     {
         return $this->town;
@@ -612,7 +607,7 @@ class Invoice {
      * Set the value of town
      *
      * @return  self
-     */ 
+     */
     public function setTown($town)
     {
         $this->town = $town;
@@ -624,7 +619,7 @@ class Invoice {
      * Get the value of taxAdministration
      * 
      * @return string
-     */ 
+     */
     public function getTaxAdministration()
     {
         return $this->taxAdministration;
@@ -634,7 +629,7 @@ class Invoice {
      * Set the value of taxAdministration
      *
      * @return  self
-     */ 
+     */
     public function setTaxAdministration($taxAdministration)
     {
         $this->taxAdministration = $taxAdministration;
@@ -646,7 +641,7 @@ class Invoice {
      * Get the value of country
      * 
      * @return string
-     */ 
+     */
     public function getCountry()
     {
         return $this->country;
@@ -656,7 +651,7 @@ class Invoice {
      * Set the value of country
      *
      * @return  self
-     */ 
+     */
     public function setCountry($country)
     {
         $this->country = $country;
@@ -668,7 +663,7 @@ class Invoice {
      * Get the value of avenueStreet
      * 
      * @return string
-     */ 
+     */
     public function getAvenueStreet()
     {
         return $this->avenueStreet;
@@ -678,7 +673,7 @@ class Invoice {
      * Set the value of avenueStreet
      *
      * @return  self
-     */ 
+     */
     public function setAvenueStreet($avenueStreet)
     {
         $this->avenueStreet = $avenueStreet;
@@ -690,7 +685,7 @@ class Invoice {
      * Get the value of district
      * 
      * @return string
-     */ 
+     */
     public function getDistrict()
     {
         return $this->district;
@@ -700,7 +695,7 @@ class Invoice {
      * Set the value of district
      *
      * @return  self
-     */ 
+     */
     public function setDistrict($district)
     {
         $this->district = $district;
@@ -712,7 +707,7 @@ class Invoice {
      * Get the value of city
      * 
      * @return string
-     */ 
+     */
     public function getCity()
     {
         return $this->city;
@@ -722,7 +717,7 @@ class Invoice {
      * Set the value of city
      *
      * @return  self
-     */ 
+     */
     public function setCity($city)
     {
         $this->city = $city;
@@ -734,7 +729,7 @@ class Invoice {
      * Get the value of postNumber
      * 
      * @return string
-     */ 
+     */
     public function getPostNumber()
     {
         return $this->postNumber;
@@ -744,7 +739,7 @@ class Invoice {
      * Set the value of postNumber
      *
      * @return  self
-     */ 
+     */
     public function setPostNumber($postNumber)
     {
         $this->postNumber = $postNumber;
@@ -756,7 +751,7 @@ class Invoice {
      * Get the value of telephoneNumber
      * 
      * @return string
-     */ 
+     */
     public function getTelephoneNumber()
     {
         return $this->telephoneNumber;
@@ -766,7 +761,7 @@ class Invoice {
      * Set the value of telephoneNumber
      *
      * @return  self
-     */ 
+     */
     public function setTelephoneNumber($telephoneNumber)
     {
         $this->telephoneNumber = $telephoneNumber;
@@ -778,7 +773,7 @@ class Invoice {
      * Get the value of faxNumber
      * 
      * @return string
-     */ 
+     */
     public function getFaxNumber()
     {
         return $this->faxNumber;
@@ -788,7 +783,7 @@ class Invoice {
      * Set the value of faxNumber
      *
      * @return  self
-     */ 
+     */
     public function setFaxNumber($faxNumber)
     {
         $this->faxNumber = $faxNumber;
@@ -800,7 +795,7 @@ class Invoice {
      * Get the value of email
      * 
      * @return string
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -810,7 +805,7 @@ class Invoice {
      * Set the value of email
      *
      * @return  self
-     */ 
+     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -822,7 +817,7 @@ class Invoice {
      * Get the value of website
      * 
      * @return string
-     */ 
+     */
     public function getWebsite()
     {
         return $this->website;
@@ -832,7 +827,7 @@ class Invoice {
      * Set the value of website
      *
      * @return  self
-     */ 
+     */
     public function setWebsite($website)
     {
         $this->website = $website;
@@ -844,7 +839,7 @@ class Invoice {
      * Get the value of refundTable
      * 
      * @return string
-     */ 
+     */
     public function getRefundTable()
     {
         return $this->refundTable;
@@ -854,7 +849,7 @@ class Invoice {
      * Set the value of refundTable
      *
      * @return  self
-     */ 
+     */
     public function setRefundTable($refundTable)
     {
         $this->refundTable = $refundTable;
@@ -866,7 +861,7 @@ class Invoice {
      * Get the value of specialBaseAmount
      * 
      * @return string
-     */ 
+     */
     public function getSpecialBaseAmount()
     {
         return $this->specialBaseAmount;
@@ -876,7 +871,7 @@ class Invoice {
      * Set the value of specialBaseAmount
      *
      * @return  self
-     */ 
+     */
     public function setSpecialBaseAmount($specialBaseAmount)
     {
         $this->specialBaseAmount = $specialBaseAmount;
@@ -888,7 +883,7 @@ class Invoice {
      * Get the value of specialBasePercent
      * 
      * @return string
-     */ 
+     */
     public function getSpecialBasePercent()
     {
         return $this->specialBasePercent;
@@ -898,7 +893,7 @@ class Invoice {
      * Set the value of specialBasePercent
      *
      * @return  self
-     */ 
+     */
     public function setSpecialBasePercent($specialBasePercent)
     {
         $this->specialBasePercent = $specialBasePercent;
@@ -910,7 +905,7 @@ class Invoice {
      * Get the value of specialBaseTaxAmount
      * 
      * @return string
-     */ 
+     */
     public function getSpecialBaseTaxAmount()
     {
         return $this->specialBaseTaxAmount;
@@ -920,7 +915,7 @@ class Invoice {
      * Set the value of specialBaseTaxAmount
      *
      * @return  self
-     */ 
+     */
     public function setSpecialBaseTaxAmount($specialBaseTaxAmount)
     {
         $this->specialBaseTaxAmount = $specialBaseTaxAmount;
@@ -932,7 +927,7 @@ class Invoice {
      * Get the value of taxType
      * 
      * @return string
-     */ 
+     */
     public function getTaxType()
     {
         return $this->taxType;
@@ -942,7 +937,7 @@ class Invoice {
      * Set the value of taxType
      *
      * @return  self
-     */ 
+     */
     public function setTaxType($taxType)
     {
         $this->taxType = $taxType;
@@ -954,7 +949,7 @@ class Invoice {
      * Get the value of itemOrServiceList
      * 
      * @return string
-     */ 
+     */
     public function getItemOrServiceList()
     {
         return $this->itemOrServiceList;
@@ -964,7 +959,7 @@ class Invoice {
      * Set the value of itemOrServiceList
      *
      * @return  self
-     */ 
+     */
     public function setItemOrServiceList($itemOrServiceList)
     {
         $this->itemOrServiceList = $itemOrServiceList;
@@ -976,7 +971,7 @@ class Invoice {
      * Get the value of type
      * 
      * @return string
-     */ 
+     */
     public function getType()
     {
         return $this->type;
@@ -986,7 +981,7 @@ class Invoice {
      * Set the value of type
      *
      * @return  self
-     */ 
+     */
     public function setType($type)
     {
         $this->type = $type;
@@ -998,7 +993,7 @@ class Invoice {
      * Get the value of base
      * 
      * @return string
-     */ 
+     */
     public function getBase()
     {
         return $this->base;
@@ -1008,7 +1003,7 @@ class Invoice {
      * Set the value of base
      *
      * @return  self
-     */ 
+     */
     public function setBase($base)
     {
         $this->base = $base;
@@ -1020,7 +1015,7 @@ class Invoice {
      * Get the value of itemOrServiceTotalPrice
      * 
      * @return string
-     */ 
+     */
     public function getItemOrServiceTotalPrice()
     {
         return $this->itemOrServiceTotalPrice;
@@ -1030,7 +1025,7 @@ class Invoice {
      * Set the value of itemOrServiceTotalPrice
      *
      * @return  self
-     */ 
+     */
     public function setItemOrServiceTotalPrice($itemOrServiceTotalPrice)
     {
         $this->itemOrServiceTotalPrice = $itemOrServiceTotalPrice;
@@ -1042,7 +1037,7 @@ class Invoice {
      * Get the value of totalDiscount
      * 
      * @return string
-     */ 
+     */
     public function getTotalDiscount()
     {
         return $this->totalDiscount;
@@ -1052,7 +1047,7 @@ class Invoice {
      * Set the value of totalDiscount
      *
      * @return  self
-     */ 
+     */
     public function setTotalDiscount($totalDiscount)
     {
         $this->totalDiscount = $totalDiscount;
@@ -1064,7 +1059,7 @@ class Invoice {
      * Get the value of calculatedVAT
      * 
      * @return string
-     */ 
+     */
     public function getCalculatedVAT()
     {
         return $this->calculatedVAT;
@@ -1074,7 +1069,7 @@ class Invoice {
      * Set the value of calculatedVAT
      *
      * @return  self
-     */ 
+     */
     public function setCalculatedVAT($calculatedVAT)
     {
         $this->calculatedVAT = $calculatedVAT;
@@ -1086,7 +1081,7 @@ class Invoice {
      * Get the value of taxTotalPrice
      * 
      * @return string
-     */ 
+     */
     public function getTaxTotalPrice()
     {
         return $this->taxTotalPrice;
@@ -1096,7 +1091,7 @@ class Invoice {
      * Set the value of taxTotalPrice
      *
      * @return  self
-     */ 
+     */
     public function setTaxTotalPrice($taxTotalPrice)
     {
         $this->taxTotalPrice = $taxTotalPrice;
@@ -1108,7 +1103,7 @@ class Invoice {
      * Get the value of includedTaxesTotalPrice
      * 
      * @return string
-     */ 
+     */
     public function getIncludedTaxesTotalPrice()
     {
         return $this->includedTaxesTotalPrice;
@@ -1118,7 +1113,7 @@ class Invoice {
      * Set the value of includedTaxesTotalPrice
      *
      * @return  self
-     */ 
+     */
     public function setIncludedTaxesTotalPrice($includedTaxesTotalPrice)
     {
         $this->includedTaxesTotalPrice = $includedTaxesTotalPrice;
@@ -1130,7 +1125,7 @@ class Invoice {
      * Get the value of paymentPrice
      * 
      * @return string
-     */ 
+     */
     public function getPaymentPrice()
     {
         return $this->paymentPrice;
@@ -1140,7 +1135,7 @@ class Invoice {
      * Set the value of paymentPrice
      *
      * @return  self
-     */ 
+     */
     public function setPaymentPrice($paymentPrice)
     {
         $this->paymentPrice = $paymentPrice;
@@ -1152,7 +1147,7 @@ class Invoice {
      * Get the value of note
      * 
      * @return string
-     */ 
+     */
     public function getNote()
     {
         return $this->note;
@@ -1162,7 +1157,7 @@ class Invoice {
      * Set the value of note
      *
      * @return  self
-     */ 
+     */
     public function setNote($note)
     {
         $this->note = $note;
@@ -1174,7 +1169,7 @@ class Invoice {
      * Get the value of orderNumber
      * 
      * @return string
-     */ 
+     */
     public function getOrderNumber()
     {
         return $this->orderNumber;
@@ -1184,7 +1179,7 @@ class Invoice {
      * Set the value of orderNumber
      *
      * @return  self
-     */ 
+     */
     public function setOrderNumber($orderNumber)
     {
         $this->orderNumber = $orderNumber;
@@ -1196,7 +1191,7 @@ class Invoice {
      * Get the value of orderData
      * 
      * @return string
-     */ 
+     */
     public function getOrderData()
     {
         return $this->orderData;
@@ -1206,7 +1201,7 @@ class Invoice {
      * Set the value of orderData
      *
      * @return  self
-     */ 
+     */
     public function setOrderData($orderData)
     {
         $this->orderData = $orderData;
@@ -1218,7 +1213,7 @@ class Invoice {
      * Get the value of waybillNumber
      * 
      * @return string
-     */ 
+     */
     public function getWaybillNumber()
     {
         return $this->waybillNumber;
@@ -1228,7 +1223,7 @@ class Invoice {
      * Set the value of waybillNumber
      *
      * @return  self
-     */ 
+     */
     public function setWaybillNumber($waybillNumber)
     {
         $this->waybillNumber = $waybillNumber;
@@ -1240,7 +1235,7 @@ class Invoice {
      * Get the value of waybillDate
      * 
      * @return string
-     */ 
+     */
     public function getWaybillDate()
     {
         return $this->waybillDate;
@@ -1250,7 +1245,7 @@ class Invoice {
      * Set the value of waybillDate
      *
      * @return  self
-     */ 
+     */
     public function setWaybillDate($waybillDate)
     {
         $this->waybillDate = $waybillDate;
@@ -1262,7 +1257,7 @@ class Invoice {
      * Get the value of receiptNumber
      * 
      * @return string
-     */ 
+     */
     public function getReceiptNumber()
     {
         return $this->receiptNumber;
@@ -1272,7 +1267,7 @@ class Invoice {
      * Set the value of receiptNumber
      *
      * @return  self
-     */ 
+     */
     public function setReceiptNumber($receiptNumber)
     {
         $this->receiptNumber = $receiptNumber;
@@ -1284,7 +1279,7 @@ class Invoice {
      * Get the value of voucherDate
      * 
      * @return string
-     */ 
+     */
     public function getVoucherDate()
     {
         return $this->voucherDate;
@@ -1294,7 +1289,7 @@ class Invoice {
      * Set the value of voucherDate
      *
      * @return  self
-     */ 
+     */
     public function setVoucherDate($voucherDate)
     {
         $this->voucherDate = $voucherDate;
@@ -1306,7 +1301,7 @@ class Invoice {
      * Get the value of voucherTime
      * 
      * @return string
-     */ 
+     */
     public function getVoucherTime()
     {
         return $this->voucherTime;
@@ -1316,7 +1311,7 @@ class Invoice {
      * Set the value of voucherTime
      *
      * @return  self
-     */ 
+     */
     public function setVoucherTime($voucherTime)
     {
         $this->voucherTime = $voucherTime;
@@ -1328,7 +1323,7 @@ class Invoice {
      * Get the value of voucherType
      * 
      * @return string
-     */ 
+     */
     public function getVoucherType()
     {
         return $this->voucherType;
@@ -1338,7 +1333,7 @@ class Invoice {
      * Set the value of voucherType
      *
      * @return  self
-     */ 
+     */
     public function setVoucherType($voucherType)
     {
         $this->voucherType = $voucherType;
@@ -1350,7 +1345,7 @@ class Invoice {
      * Get the value of zReportNumber
      * 
      * @return string
-     */ 
+     */
     public function getZReportNumber()
     {
         return $this->zReportNumber;
@@ -1360,7 +1355,7 @@ class Invoice {
      * Set the value of zReportNumber
      *
      * @return  self
-     */ 
+     */
     public function setZReportNumber($zReportNumber)
     {
         $this->zReportNumber = $zReportNumber;
@@ -1372,7 +1367,7 @@ class Invoice {
      * Get the value of okcSerialNumber
      * 
      * @return string
-     */ 
+     */
     public function getOkcSerialNumber()
     {
         return $this->okcSerialNumber;
@@ -1382,7 +1377,7 @@ class Invoice {
      * Set the value of okcSerialNumber
      *
      * @return  self
-     */ 
+     */
     public function setOkcSerialNumber($okcSerialNumber)
     {
         $this->okcSerialNumber = $okcSerialNumber;
