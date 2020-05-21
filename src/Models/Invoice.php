@@ -19,6 +19,7 @@ class Invoice
     protected $currency;
     protected $currencyRate;
     protected $invoiceType;
+    protected $whichType;
     protected $taxOrIdentityNumber;
     protected $invoiceAcceptorTitle;
     protected $invoiceAcceptorName;
@@ -78,6 +79,7 @@ class Invoice
         $this->currency = isset($data["paraBirimi"]) ? $data["paraBirimi"] : "";
         $this->currencyRate = isset($data["dovzTLkur"]) ? $data["dovzTLkur"] : "";
         $this->invoiceType = isset($data["faturaTipi"]) ? $data["faturaTipi"] : "";
+        $this->whichType = isset($data["hangiTip"]) ? $data["hangiTip"] : "5000/30000";
         $this->taxOrIdentityNumber = isset($data["vknTckn"]) ? $data["vknTckn"] : "11111111111";
         $this->invoiceAcceptorTitle = isset($data["aliciUnvan"]) ? $data["aliciUnvan"] : "";
         $this->invoiceAcceptorName = isset($data["aliciAdi"]) ? $data["aliciAdi"] : "";
@@ -134,6 +136,7 @@ class Invoice
         $this->currency = isset($data["currency"]) ? $data["currency"] : "";
         $this->currencyRate = isset($data["currencyRate"]) ? $data["currencyRate"] : "";
         $this->invoiceType = isset($data["invoiceType"]) ? $data["invoiceType"] : "";
+        $this->whichType = isset($data["whichType"]) ? $data["whichType"] : "5000/30000";
         $this->taxOrIdentityNumber = isset($data["taxOrIdentityNumber"]) ? $data["taxOrIdentityNumber"] : "11111111111";
         $this->invoiceAcceptorTitle = isset($data["invoiceAcceptorTitle"]) ? $data["invoiceAcceptorTitle"] : "";
         $this->invoiceAcceptorName = isset($data["invoiceAcceptorName"]) ? $data["invoiceAcceptorName"] : "";
@@ -217,6 +220,7 @@ class Invoice
             "paraBirimi" => $this->currency,
             "dovzTLkur" => $this->currencyRate,
             "faturaTipi" => $this->invoiceType,
+            "hangiTip" =>  $this->whichType,
             "vknTckn" => $this->taxOrIdentityNumber,
             "aliciUnvan" => $this->invoiceAcceptorTitle,
             "aliciAdi" => $this->invoiceAcceptorName,
@@ -435,6 +439,28 @@ class Invoice
     public function setInvoiceType($invoiceType)
     {
         $this->invoiceType = $invoiceType;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of whichType
+     * 
+     * @return string
+     */
+    public function getWhichType()
+    {
+        return $this->whichType;
+    }
+
+    /**
+     * Set the value of invoiceType
+     *
+     * @return  self
+     */
+    public function setWhichType($whichType)
+    {
+        $this->whichType = $whichType;
 
         return $this;
     }

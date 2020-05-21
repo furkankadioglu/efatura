@@ -95,6 +95,7 @@ $fatura_detaylari  = [
 "paraBirimi"  =>  "TRY",
 "dovzTLkur"  =>  "0",
 "faturaTipi"  =>  "SATIS",
+"hangiTip"  =>  "5000/30000",
 "vknTckn"  =>  "11111111111",
 "aliciUnvan"  =>  "FURKAN KADIOGLU",
 "aliciAdi"  =>  "FURKAN",
@@ -154,6 +155,7 @@ $fatura_detaylari["malHizmetTable"][] = [
 "iskontoNedeni"  =>  "",
 "malHizmetTutari"  =>  "99",
 "kdvOrani"  =>  18,
+"vergiOrani" => 0,
 "kdvTutari"  =>  "15.12",
 "vergininKdvTutari"  =>  "0"
 ];

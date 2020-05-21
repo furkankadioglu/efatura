@@ -446,7 +446,7 @@ class InvoiceManager
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
-        if ($body["data"] != "Faturanız başarıyla taslaklara eklenmiştir.") {
+        if ($body["data"] != "Fatura başarıyla taslaklara eklenmiştir.") {
             throw new ApiException("Fatura oluşturulamadı.");
         }
 
