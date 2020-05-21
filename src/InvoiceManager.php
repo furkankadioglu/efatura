@@ -384,7 +384,7 @@ class InvoiceManager
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "RG_BASITTASLAKLAR",
             "token" => $this->token,
-            "jp" => '{"baslangic":"' . $startDate . '","bitis":"' . $endDate . '","table":[]}'
+            "jp" => '{"baslangic":"' . $startDate . '","bitis":"' . $endDate . '","hangiTip":"5000/30000", "table":[]}'
         ];
 
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
