@@ -155,6 +155,7 @@ $fatura_detaylari["malHizmetTable"][] = [
 "iskontoNedeni"  =>  "",
 "malHizmetTutari"  =>  "99",
 "kdvOrani"  =>  18,
+"vergiOrani" => 0,
 "kdvTutari"  =>  "15.12",
 "vergininKdvTutari"  =>  "0"
 ];
