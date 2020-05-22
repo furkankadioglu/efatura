@@ -5,8 +5,17 @@ use Exception;
 
 class ApiException extends Exception
 {
-    public function __construct($message = null, $code = 0, Exception $previous = null)
+    protected $responseData;
+
+    public function __construct($message = null, $code = 0, Exception $previous = null, $responseData = [])
     {
+        $this->responseData = $responseData;
+
         parent::__construct($message, $code, $previous);
+    }
+
+    public function getResponseData()
+    {
+        return $this->responseData;
     }
 }

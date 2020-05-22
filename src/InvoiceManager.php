@@ -322,7 +322,7 @@ class InvoiceManager
     private function checkError($jsonData)
     {
         if (isset($jsonData["error"])) {
-            throw new ApiException("Sunucu taraflı bir hata oluştu!");
+            throw new ApiException("Sunucu taraflı bir hata oluştu!", 0, null, $jsonData);
         }
     }
 
@@ -447,7 +447,7 @@ class InvoiceManager
         $this->checkError($body);
 
         if ($body["data"] != "Fatura başarıyla taslaklara eklenmiştir.") {
-            throw new ApiException("Fatura oluşturulamadı.");
+            throw new ApiException("Fatura oluşturulamadı.", 0, null, $body);
         }
 
         return $this;
@@ -579,7 +579,7 @@ class InvoiceManager
         $this->checkError($body);
 
         if ($body["data"] != "İptal edildi.") {
-            throw new ApiException("Fatura iptal edilemedi.");
+            throw new ApiException("Fatura iptal edilemedi.", 0, null, $body);
         }
 
         return true;
