@@ -162,7 +162,7 @@ $fatura_detaylari["malHizmetTable"][] = [
 ```
 Değişkenler Türkçe olduğundan dolayı **mapWithTurkishKeys** fonksiyonunu kullanıyoruz.
 ```php
-use furkankadioglu\eFatura\Invoice;
+use furkankadioglu\eFatura\Models\Invoice;
 $inv  =  new Invoice();
 $inv->mapWithTurkishKeys($fatura_detaylari); // Key yapısı türkçe 🇹🇷
 // VEYA
