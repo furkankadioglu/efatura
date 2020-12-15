@@ -118,7 +118,7 @@ class InvoiceManager
         "pragma" => "no-cache",
         "sec-fetch-mode" => "cors",
         "sec-fetch-site" => "same-origin",
-
+        "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.67 Safari/537.36", // Dummy UA
     ];
 
     /**
@@ -216,6 +216,17 @@ class InvoiceManager
     }
 
     /**
+     * Getter function for token
+     *
+     * @param string $token
+     * @return furkankadioglu\eFatura\InvoiceManager
+     */
+    public function getToken($token)
+    {
+        return $this->token;
+    }
+
+    /**
      * Connect with credentials
      *
      * @return furkankadioglu\eFatura\InvoiceManager
@@ -240,7 +251,7 @@ class InvoiceManager
     }
 
     /**
-     * Get base url 
+     * Get base url
      *
      * @return string
      */
@@ -304,7 +315,6 @@ class InvoiceManager
             "assoscmd" => "logout",
             "rtype" => "json",
             "token" => $this->token,
-
         ];
 
         $body = $this->sendRequestAndGetBody(self::TOKEN_PATH, $parameters, []);
@@ -349,6 +359,16 @@ class InvoiceManager
     }
 
     /**
+     * Getter function for invoices
+     *
+     * @return array furkankadioglu\eFatura\Models\Invoice
+     */
+    public function getInvoices()
+    {
+        return $this->invoices;
+    }
+
+    /**
      * Get company name from tax number via api
      *
      * @param string $taxNr
@@ -389,6 +409,9 @@ class InvoiceManager
 
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
+
+        // Array tipinden verilen tarih aralığında yer alan faturalar dönüyor
+        $this->invoices = $body['data'];
 
         return $body;
     }
@@ -438,7 +461,7 @@ class InvoiceManager
         $parameters = [
             "cmd" => "EARSIV_PORTAL_FATURA_OLUSTUR",
             "callid" => Uuid::uuid1()->toString(),
-            "pageName" => "RG_FATURA",
+            "pageName" => "RG_BASITFATURA",
             "token" => $this->token,
             "jp" => "" . json_encode($this->invoice->export()) . ""
         ];
@@ -449,48 +472,6 @@ class InvoiceManager
         if ($body["data"] != "Fatura başarıyla taslaklara eklenmiştir.") {
             throw new ApiException("Fatura oluşturulamadı.", 0, null, $body);
         }
-
-        return $this;
-    }
-
-    /**
-     * Sign a draft invoice
-     *
-     * @param Invoice $invoice
-     * @return void
-     */
-    public function signDraftInvoiceWithDevice(Invoice $invoice = null)
-    {
-        $this->signDraftInvoice();
-        return $this;
-    }
-
-    /**
-     * Sign a certificate with device
-     *
-     * @param Invoice $invoice
-     * @return void
-     */
-    public function signDraftInvoice(Invoice $invoice = null)
-    {
-        if ($invoice != null) {
-            $this->invoice = $invoice;
-        }
-
-        if ($this->invoice == null) {
-            throw new NullDataException("Invoice variable not exist");
-        }
-
-        $parameters = [
-            "cmd" => "EARSIV_PORTAL_FATURA_HSM_CIHAZI_ILE_IMZALA",
-            "callid" => Uuid::uuid1()->toString(),
-            "pageName" => "RG_BASITTASLAKLAR",
-            "token" => $this->token,
-            "imzalanacaklar" => [$this->invoice->getSummary()]
-        ];
-
-        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
-        $this->checkError($body);
 
         return $this;
     }
@@ -756,11 +737,13 @@ class InvoiceManager
     {
         $data = [
             "SIFRE" => $code,
-            "OID" => $operationId
+            "OID" => $operationId,
+            'OPR' => 1,
+            'DATA' => $this->invoices,
         ];
 
         $parameters = [
-            "cmd" => "EARSIV_PORTAL_SMSSIFRE_GONDER",
+            "cmd" => "0lhozfib5410mp",
             "callid" => Uuid::uuid1()->toString(),
             "pageName" => "RG_SMSONAY",
             "token" => $this->token,
