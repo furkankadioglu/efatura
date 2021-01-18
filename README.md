@@ -24,6 +24,10 @@ https://earsivportaltest.efatura.gov.tr/login.jsp
 **Paket Kurulumu:**
 
     composer require furkankadioglu/efatura
+    
+### 📲 Destek ve Sorular 
+
+Eğer bir sorun yaşıyorsanız veya proje hakkında bir sorunuz varsa lütfen [buradan](https://github.com/furkankadioglu/efatura/issues/new, "buradan") bir kayıt oluşturun, yaşadığınız sorunu hep birlikte çözelim.
 
 
 ### 🚩Özellikler
@@ -42,10 +46,6 @@ https://earsivportaltest.efatura.gov.tr/login.jsp
 - Kullanıcı bilgilerini güncelleme.
 - SMS ile Fatura doğrulama ve onaylama.
 - Faturayı PDF olarak çıktı alma.
-
-### 📲 Destek ve Sorular 🛠
-
-Eğer bir sorun yaşıyorsanız veya proje hakkında bir sorunuz varsa lütfen [buradan]("https://github.com/furkankadioglu/efatura/issues/new") bir kayıt oluşturun, yaşadığınız sorunu hep birlikte çözelim.
 
 ### 🚩Örnekler
 
