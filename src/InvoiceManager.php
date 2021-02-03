@@ -620,7 +620,7 @@ class InvoiceManager
 
         $signed = $signed ? "Onaylandı" : "Onaylanmadı";
 
-        return $this->getBaseUrl() . "/earsiv-services/download?token={$this->token}&ettn={$this->invoice->getUuid()}&belgeTip=FATURA&onayDurumu={$signed}&cmd=downloadResource";
+        return $this->getBaseUrl() . "/earsiv-services/download?token={$this->token}&ettn={$this->invoice->getUuid()}&belgeTip=FATURA&onayDurumu={$signed}&cmd=EARSIV_PORTAL_BELGE_INDIR";
     }
 
     /**
