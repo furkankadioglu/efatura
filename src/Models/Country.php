@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace furkankadioglu\eFatura\Models;
 
@@ -60,10 +60,10 @@ final class Country {
     const CECEN_CUMHURIYETI = "Çeçen Cumhuriyeti";
     const CIN_HALK_CUMHURIYETI = "Çin Halk Cumhuriyeti";
     const DANIMARKA = "Danimarka";
-    const DAĞISTAN_CUMHURIYETI = "Dağistan Cumhuriyeti";
+    const DAGISTAN_CUMHURIYETI = "Dağistan Cumhuriyeti";
     const DOMINIK_CUMHURIYETI = "Dominik Cumhuriyeti";
     const DOMINIKA = "Dominika";
-    const DOĞU_TIMOR = "Doğu Timor";
+    const DOGU_TIMOR = "Doğu Timor";
     const DUBAI = "Dubai";
     const EKVATOR = "Ekvator";
     const EKVATOR_GINESI = "Ekvator Ginesi";
@@ -89,7 +89,7 @@ final class Country {
     const GAMBIYA = "Gambiya";
     const GANA = "Gana";
     const GRENADA = "Grenada";
-    const GRÖNLAND = "Grönland";
+    const GRONLAND = "Grönland";
     const GUADELUP = "Guadelup";
     const GUAM = "Guam";
     const GUATEMALA = "Guatemala";
@@ -127,7 +127,7 @@ final class Country {
     const KAMBOCYA = "Kamboçya";
     const KAMERUN = "Kamerun";
     const KANADA = "Kanada";
-    const KARADAĞ = "Karadağ";
+    const KARADAG = "Karadağ";
     const KATAR = "Katar";
     const KAZAKISTAN = "Kazakistan";
     const KENYA = "Kenya";
@@ -139,7 +139,7 @@ final class Country {
     const KONGO = "Kongo";
     const KOSOVA = "Kosova";
     const KOSTA_RIKA = "Kosta Rika";
-    const KUTUP_BÖLGELERI = "Kutup Bölgeleri";
+    const KUTUP_BOLGELERI = "Kutup Bölgeleri";
     const KUVEYT = "Kuveyt";
     const KUZEY_KIBRIS_TURK_CU = "Kuzey Kibris Türk Cu";
     const KUZEY_KORE_DEMOKRATI = "Kuzey Kore Demokrati";
@@ -178,7 +178,7 @@ final class Country {
     const MONTSERRAT = "Montserrat";
     const MORITANYA = "Moritanya";
     const MOZAMBIK = "Mozambik";
-    const MOĞOLISTAN = "Moğolistan";
+    const MOGOLISTAN = "Moğolistan";
     const MYANMAR = "Myanmar";
     const MIKRONEZYA = "Mikronezya";
     const NAMIBYA = "Namibya";
@@ -191,7 +191,7 @@ final class Country {
     const NIKARAGUA = "Nikaragua";
     const NIUE = "Niue";
     const ORTA_AFRIKA_CUMHURIY = "Orta Afrika Cumhuriy";
-    const ÖZBEKISTAN = "Özbekistan";
+    const OZBEKISTAN = "Özbekistan";
     const PAKISTAN = "Pakistan";
     const PALAU = "Palau";
     const PANAMA = "Panama";
@@ -218,7 +218,7 @@ final class Country {
     const SOMALI = "Somali";
     const SRI_LANKA = "Sri Lanka";
     const ST_VINCENT_VE_GRENAD = "St Vincent Ve Grenad";
-    const ST_HELENA_VE_BAĞLAN = "St. Helena Ve Bağlan";
+    const ST_HELENA_VE_BAGLAN = "St. Helena Ve Bağlan";
     const ST_KITTS_VE_NEVIS = "St. Kitts Ve Nevis";
     const ST_LUCIA = "St. Lucia";
     const ST_PIERRE_VE_MIQUEL = "St. Pierre Ve Miquel";
@@ -228,7 +228,7 @@ final class Country {
     const SUUDI_ARABISTAN = "Suudi Arabistan";
     const SVAZILAND = "Svaziland";
     const SAMOA_BATI_SAMOA = "Samoa (Batı Samoa)";
-    const SERBEST_BÖLGE_BA = "Serbest Bölge (Ba-Bs)";
+    const SERBEST_BOLGE_BA = "Serbest Bölge (Ba-Bs)";
     const SINGAPUR = "Singapur";
     const SILI = "Şili";
     const TACIKISTAN = "Tacikistan";

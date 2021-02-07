@@ -98,7 +98,7 @@ class Invoice
         $this->faxNumber = isset($data["fax"]) ? $data["fax"] : "";
         $this->email = isset($data["eposta"]) ? $data["eposta"] : "";
         $this->website = isset($data["websitesi"]) ? $data["websitesi"] : "";
-        $this->refundTable = isset($data["iadeTable"]) ? $data["iadeTable"] : "";
+        $this->refundTable = isset($data["iadeTable"]) ? $data["iadeTable"] : [];
         $this->specialBaseAmount = isset($data["ozelMatrahTutari"]) ? $data["ozelMatrahTutari"] : "";
         $this->specialBasePercent = isset($data["ozelMatrahOrani"]) ? $data["ozelMatrahOrani"] : "";
         $this->specialBaseTaxAmount = isset($data["ozelMatrahVergiTutari"]) ? $data["ozelMatrahVergiTutari"] : "";
@@ -155,7 +155,7 @@ class Invoice
         $this->faxNumber = isset($data["faxNumber"]) ? $data["faxNumber"] : "";
         $this->email = isset($data["email"]) ? $data["email"] : "";
         $this->website = isset($data["website"]) ? $data["website"] : "";
-        $this->refundTable = isset($data["refundTable"]) ? $data["refundTable"] : "";
+        $this->refundTable = isset($data["refundTable"]) ? $data["refundTable"] : [];
         $this->specialBaseAmount = isset($data["specialBaseAmount"]) ? $data["specialBaseAmount"] : "";
         $this->specialBasePercent = isset($data["specialBasePercent"]) ? $data["specialBasePercent"] : "";
         $this->specialBaseTaxAmount = isset($data["specialBaseTaxAmount"]) ? $data["specialBaseTaxAmount"] : "";

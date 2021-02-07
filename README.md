@@ -24,6 +24,10 @@ https://earsivportaltest.efatura.gov.tr/login.jsp
 **Paket Kurulumu:**
 
     composer require furkankadioglu/efatura
+    
+### 📲 Destek ve Sorular 
+
+Eğer bir sorun yaşıyorsanız veya proje hakkında bir sorunuz varsa lütfen [buradan](https://github.com/furkankadioglu/efatura/issues/new "buradan") bir kayıt oluşturun, yaşadığınız sorunu hep birlikte çözelim.
 
 
 ### 🚩Özellikler
@@ -34,7 +38,6 @@ https://earsivportaltest.efatura.gov.tr/login.jsp
 - Menü listesini görüntüleme.
 - Fatura detaylarını görüntüleme.
 - Türkçe veya İngilizce seçenekleriyle fatura modeli oluşturma.
-- Fatura imzalama/onaylama.
 - Faturayı HTML olarak çıktı alma.
 - Faturanın indirme adresini alma.
 - Faturayı iptal etme.
@@ -212,11 +215,6 @@ $client->sendUserInformationsData(); // Sunucuya gönder.
 ### 🚩Fonksiyonel Özellikler
 (İndirme/Onaylama/HTML Çıktısını Alma/İptal vb.)
 
-
-**Onaylamak için:**
-```php
-$client->signDraftInvoice();
-```
 **HTML çıktısını almak için:**
 ```php
 $client->getInvoiceHTML();
@@ -242,7 +240,7 @@ $client->cancelInvoice();
 $client->sendSMSVerification($telefon); // Operasyon id döndürür.
 ```
 
-**SMS doğrulamasını onaylamak için:**
+**SMS doğrulamasını onaylamak ve onaylanacak faturaları göndermek için:**
 ```php
 $client->verifySMSCode($kod, $operasyonId);
 ```
