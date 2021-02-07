@@ -753,6 +753,16 @@ class InvoiceManager
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
+        if(!isset($body["data"]["sonuc"]))
+        {
+            return false;
+        }
+        
+        if($body["data"]["sonuc"] == 0)
+        {
+            return false;
+        }
+
         return true;
     }
 }
