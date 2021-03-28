@@ -668,6 +668,36 @@ class InvoiceManager
     }
 
     /**
+     * Get Invoices from API
+     *
+     * @param string $startDate
+     * @param string $endDate
+     * @param array $ettn
+     * @return array
+     */
+    public function getEttnInvoiceFromAPIArray($startDate, $endDate, $ettn)
+    {
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_TASLAKLARI_GETIR",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_BASITTASLAKLAR",
+            "token" => $this->token,
+            "jp" => '{"baslangic":"' . $startDate . '","bitis":"' . $endDate . '","hangiTip":"5000/30000", "table":[]}'
+        ];
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
+        $this->checkError($body);
+        $data = $body['data'];
+        $dataFiltered = array();
+        foreach($data as $item){
+	        if($item["onayDurumu"] == "Onaylanmadı" AND in_array($item["ettn"], $ettn)){
+		        array_push($dataFiltered, $item);
+	        }
+        }
+        $this->invoices = $dataFiltered;
+        return $dataFiltered;
+    }
+
+    /**
      * Send user informations data
      *
      * @param Invoice $invoice
