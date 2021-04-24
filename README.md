@@ -250,12 +250,6 @@ $client->verifySMSCode($kod, $operasyonId);
 $client->getCompanyInfo($TCKimlikNoVeyaVergiNo);
 ```
 
-$inv  =  new Invoice();
-$inv->mapWithTurkishKeys($fatura_detaylari); //Fatura key yapısı=Türkçe
-
-logla(json_encode($inv->export()), 'fatura.log'); //Fatura datasını kaydet
-echo $inv->currencyTransformerToWords($urun["birimfiyat"]);
-
 **Çıkış yapıp, oturumu kapatmak için:**
 ```php
 $client->logOutFromAPI();
