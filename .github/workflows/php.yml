@@ -6,9 +6,19 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
+        php-versions: ['7.4']
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        php-version: '7.4'
+
+    - name: Check PHP Version
+      run: php -v
+
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
