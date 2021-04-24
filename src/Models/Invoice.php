@@ -99,9 +99,9 @@ class Invoice
         $this->email = isset($data["eposta"]) ? $data["eposta"] : "";
         $this->website = isset($data["websitesi"]) ? $data["websitesi"] : "";
         $this->refundTable = isset($data["iadeTable"]) ? $data["iadeTable"] : [];
-        $this->specialBaseAmount = isset($data["ozelMatrahTutari"]) ? $data["ozelMatrahTutari"] : "";
-        $this->specialBasePercent = isset($data["ozelMatrahOrani"]) ? $data["ozelMatrahOrani"] : "";
-        $this->specialBaseTaxAmount = isset($data["ozelMatrahVergiTutari"]) ? $data["ozelMatrahVergiTutari"] : "";
+        $this->specialBaseAmount = isset($data["ozelMatrahTutari"]) ? $data["ozelMatrahTutari"] : "0";
+        $this->specialBasePercent = isset($data["ozelMatrahOrani"]) ? $data["ozelMatrahOrani"] : "0";
+        $this->specialBaseTaxAmount = isset($data["ozelMatrahVergiTutari"]) ? $data["ozelMatrahVergiTutari"] : "0";
         $this->taxType = isset($data["vergiCesidi"]) ? $data["vergiCesidi"] : "";
         $this->itemOrServiceList = isset($data["malHizmetTable"]) ? $data["malHizmetTable"] : [];
         $this->type = isset($data["tip"]) ? $data["tip"] : "İskonto";
@@ -156,9 +156,9 @@ class Invoice
         $this->email = isset($data["email"]) ? $data["email"] : "";
         $this->website = isset($data["website"]) ? $data["website"] : "";
         $this->refundTable = isset($data["refundTable"]) ? $data["refundTable"] : [];
-        $this->specialBaseAmount = isset($data["specialBaseAmount"]) ? $data["specialBaseAmount"] : "";
-        $this->specialBasePercent = isset($data["specialBasePercent"]) ? $data["specialBasePercent"] : "";
-        $this->specialBaseTaxAmount = isset($data["specialBaseTaxAmount"]) ? $data["specialBaseTaxAmount"] : "";
+        $this->specialBaseAmount = isset($data["specialBaseAmount"]) ? $data["specialBaseAmount"] : "0";
+        $this->specialBasePercent = isset($data["specialBasePercent"]) ? $data["specialBasePercent"] : "0";
+        $this->specialBaseTaxAmount = isset($data["specialBaseTaxAmount"]) ? $data["specialBaseTaxAmount"] : "0";
         $this->taxType = isset($data["taxType"]) ? $data["taxType"] : "";
         $this->itemOrServiceList = isset($data["itemOrServiceList"]) ? $data["itemOrServiceList"] : [];
         $this->type = isset($data["type"]) ? $data["type"] : "İskonto";
