@@ -43,5 +43,11 @@ final class UnitType {
     const BIN_M3 = "R9";
     const SET = "SET";
     const BIN_ADET = "T3";
+    const SCM = "Q37";
+    const NCM = "Q39";
+    const MMBTU = "J39";
+    const CM3 = "G52";
+    const DUZINE = "DZN";
+    const DMK = "dm2";
     
 }

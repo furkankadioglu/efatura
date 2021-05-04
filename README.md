@@ -152,7 +152,6 @@ $fatura_detaylari["malHizmetTable"][] = [
 "birim"  =>  "DAY",
 "birimFiyat"  =>  "3",
 "fiyat"  =>  "84",
-"iskontoNedeni"  =>  "İskonto",
 "iskontoOrani"  =>  0,
 "iskontoTutari"  =>  "0",
 "iskontoNedeni"  =>  "",
@@ -161,6 +160,7 @@ $fatura_detaylari["malHizmetTable"][] = [
 "vergiOrani" => 0,
 "kdvTutari"  =>  "15.12",
 "vergininKdvTutari"  =>  "0"
+"ozelMatrahTutari" => "0", //zorunlu
 ];
 ```
 Değişkenler Türkçe olduğundan dolayı **mapWithTurkishKeys** fonksiyonunu kullanıyoruz.
