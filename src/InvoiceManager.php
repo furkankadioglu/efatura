@@ -469,7 +469,7 @@ class InvoiceManager
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
-        if ($body["data"] != "Fatura başarıyla taslaklara eklenmiştir.") {
+        if ($body["data"] != "Faturanız başarıyla oluşturulmuştur. Düzenlenen Belgeler menüsünden faturanıza ulaşabilirsiniz.") {
             throw new ApiException("Fatura oluşturulamadı.", 0, null, $body);
         }
 
@@ -559,7 +559,7 @@ class InvoiceManager
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
-        if ($body["data"] != "İptal edildi.") {
+        if (strpos($body["data"], " fatura başarıyla silindi.") !== false) {
             throw new ApiException("Fatura iptal edilemedi.", 0, null, $body);
         }
 
