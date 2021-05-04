@@ -159,13 +159,13 @@ $fatura_detaylari["malHizmetTable"][] = [
 "kdvOrani"  =>  18,
 "vergiOrani" => 0,
 "kdvTutari"  =>  "15.12",
-"vergininKdvTutari"  =>  "0"
+"vergininKdvTutari"  =>  "0",
 "ozelMatrahTutari" => "0", //zorunlu
 ];
 ```
 Değişkenler Türkçe olduğundan dolayı **mapWithTurkishKeys** fonksiyonunu kullanıyoruz.
 ```php
-use furkankadioglu\eFatura\Invoice;
+use furkankadioglu\eFatura\Models\Invoice;
 $inv  =  new Invoice();
 $inv->mapWithTurkishKeys($fatura_detaylari); // Key yapısı türkçe 🇹🇷
 // VEYA
@@ -298,7 +298,7 @@ $gurcistanUlkesi = Country::GURCISTAN; // Gürcistan
 **Anahtar Yapısını Değiştirme:**
 
 ```php
-use furkankadioglu\eFatura\Invoice;
+use furkankadioglu\eFatura\Models\Invoice;
 $inv  =  new Invoice();
 
 $invoice_details = [
