@@ -559,7 +559,7 @@ class InvoiceManager
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
-        if (strpos($body["data"], " fatura başarıyla silindi.") !== false) {
+        if (strpos($body["data"], " fatura başarıyla silindi.") == false) {
             throw new ApiException("Fatura iptal edilemedi.", 0, null, $body);
         }
 
