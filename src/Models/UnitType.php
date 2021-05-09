@@ -46,7 +46,7 @@ final class UnitType {
     const SCM = "Q37";
     const NCM = "Q39";
     const MMBTU = "J39";
-    const CM3 = "G52";
+    const M3_GUN = "G52";
     const DUZINE = "DZN";
     const DMK = "dm2";
     
