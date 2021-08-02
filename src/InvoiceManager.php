@@ -728,6 +728,34 @@ class InvoiceManager
     }
 
     /**
+     * Initialize SMS Verification
+     *
+     * @return boolean
+     */
+     
+     private function initializeSMSVerification()
+     {
+        $parameters = [
+            "cmd" => "EARSIV_PORTAL_TELEFONNO_SORGULA",
+            "callid" => Uuid::uuid1()->toString(),
+            "pageName" => "RG_BASITTASLAKLAR",
+            "token" => $this->token,
+            "jp" => "{}",
+        ];
+
+        $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
+        $this->checkError($body);
+
+        if(!isset($body["data"]["telefon"]))
+        {
+            return false;
+        }
+
+        return true;
+    }
+    
+    
+    /**
      * Send user informations data
      *
      * @param string $phoneNumber
@@ -735,9 +763,11 @@ class InvoiceManager
      */
     public function sendSMSVerification($phoneNumber)
     {
+        $this->initializeSMSVerification();
+        
         $data = [
             "CEPTEL" => $phoneNumber,
-            "KTEL" => false,
+            "KCEPTEL" => false,
             "TIP" => ""
         ];
 
