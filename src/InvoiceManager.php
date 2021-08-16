@@ -746,27 +746,22 @@ class InvoiceManager
         $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
         $this->checkError($body);
 
-        if(!isset($body["data"]["telefon"]))
-        {
-            return false;
-        }
-
-        return true;
+        return $body["data"]["telefon"];
     }
     
     
     /**
      * Send user informations data
      *
-     * @param string $phoneNumber
+     * @param string $phoneNumber optional
      * @return array
      */
-    public function sendSMSVerification($phoneNumber)
+    public function sendSMSVerification($phoneNumber = null)
     {
-        $this->initializeSMSVerification();
+        $getPhoneNumber = $this->initializeSMSVerification();
         
         $data = [
-            "CEPTEL" => $phoneNumber,
+            "CEPTEL" => $getPhoneNumber,
             "KCEPTEL" => false,
             "TIP" => ""
         ];
