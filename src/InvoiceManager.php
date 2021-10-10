@@ -168,8 +168,14 @@ class InvoiceManager
         return $this;
     }
 
-    public function setTestCredentials()
+    public function setTestCredentials($username = null, $password = null)
     {
+    	if($username && $password){
+            $this->username = $username;
+            $this->password = $password;
+            return $this;
+        }
+	    
         $response = $this->client->post($this->getBaseUrl() . "/earsiv-services/esign", [
             "form_params" => [
                 "assoscmd" => "kullaniciOner",
