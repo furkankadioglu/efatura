@@ -421,6 +421,22 @@ class InvoiceManager
 
         return $body;
     }
+   public function getInvoicesMeFromAPI($startDate, $endDate) //Adımıza Düzenlenen faturaları sorgulama
+      {
+          $parameters = [
+              "cmd" => "EARSIV_PORTAL_ADIMA_KESILEN_BELGELERI_GETIR",
+              "callid" => Uuid::uuid1()->toString(),
+              "pageName" => "RG_ALICI_TASLAKLAR",
+              "token" => $this->token,
+              "jp" => '{"baslangic":"' . $startDate . '","bitis":"' . $endDate . ' " }' ];
+          $body = $this->sendRequestAndGetBody(self::DISPATCH_PATH, $parameters);
+          $this->checkError($body);
+ 
+          // Array tipinden verilen tarih aralığında yer alan faturalar dönüyor
+          $this->invoices = $body['data'];
+ 
+          return $body;
+      }
 
     /**
      * Get main three menu from api
