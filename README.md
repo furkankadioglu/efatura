@@ -180,6 +180,12 @@ Sonrasında da taslak oluşturuyoruz:
 ```php
 $client->createDraftBasicInvoice();
 ```
+Adımıza Düzenlenen Faturaları Sorgulamak için
+```php
+$client->getInvoicesMeFromAPI("01/01/2021", "31/12/2022");
+```
+
+
 
 **Kullanıcı Bilgileri**
 
