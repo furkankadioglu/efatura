@@ -492,7 +492,12 @@ class InvoiceManager
         $this->checkError($body);
 
         if ($body["data"] != "Faturanız başarıyla oluşturulmuştur. Düzenlenen Belgeler menüsünden faturanıza ulaşabilirsiniz.") {
-            throw new ApiException("Fatura oluşturulamadı.", 0, null, $body);
+            
+            $responseData = [
+                'error' => $body['data']
+            ];
+
+            die(json_encode($responseData));
         }
 
         return $this;
