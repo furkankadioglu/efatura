@@ -1,5 +1,5 @@
 {
-    "name": "furkankadioglu/efatura",
+    "name": "ugurisik/efatura",
     "description": "EFatura",
     "keywords": [
         "efatura",
@@ -8,7 +8,7 @@
         "e-arşiv",
         "earşiv"
     ],
-    "homepage": "https://github.com/furkankadioglu/efatura",
+    "homepage": "https://github.com/ugurisik/efatura",
     "license": "MIT",
     "version": "1.9.4",
     "authors": [
