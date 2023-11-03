@@ -9,12 +9,12 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest, windows-latest, macOS-latest]
-        php-versions: ['7.4']
+        php-versions: ['8.2']
 
     steps:
     - uses: actions/checkout@v2
       with:
-        php-version: '7.4'
+        php-version: '8.2'
 
     - name: Check PHP Version
       run: php -v
