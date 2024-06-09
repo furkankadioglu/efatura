@@ -27,7 +27,9 @@ https://earsivportaltest.efatura.gov.tr/login.jsp
     
 ### 📲 Destek ve Sorular 
 
-Eğer bir sorun yaşıyorsanız veya proje hakkında bir sorunuz varsa lütfen [buradan](https://github.com/furkankadioglu/efatura/issues/new "buradan") bir kayıt oluşturun, yaşadığınız sorunu hep birlikte çözelim.
+Eğer bir sorun yaşıyorsanız veya proje hakkında bir sorunuz varsa lütfen [buradan](https://github.com/furkankadioglu/efatura/issues/new "buradan") bir kayıt oluşturun, yaşadığınız sorunu hep birlikte çözelim. 
+
+Proje tamamen açık kaynak olduğundan dolayı, projeninin devamlılığı/düzenlemeleri ve hata çözümleri de yine topluluk tarafından yapılmaktadır. Projeyi başlatan kişinin ücretli veya ücretsiz bir destek çözümü bulunmamaktadır, bu sebeple lütfen sosyal medyadan temasa geçmeyin. Anlayışınız ve saygınız için teşekkür ederiz.
 
 
 ### 🚩Özellikler
